@@ -12,12 +12,14 @@
 
 <body>
     <header>
-        <div>Vulindlela</div>
+        
+        <div class="logo">Vulindlela</div>
          <!-- <img src="./assets/vulindlela.png" alt=""> -->
         <nav>
             <ul>
-                <li><a href="./index.html">Home</a></li>
-                <li class="dropdown"><a href="./apply.html">Apply</a>
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li class="dropdown"><a href="./apply.html">Apply<i class="fa-solid fa-caret-down"></i></a>
+                    
                     <ul class="submenu">
                         <li><a href="./membership-apply.html">Membership</a></li>
                         <li><a href="./apply.html">Loan</a></li>
@@ -27,9 +29,13 @@
             </ul>
         </nav>
         <div class="phone">
-            <i class="fa-solid fa-phone"></i>
-            240482727
+            <a href="tel:+1234567890"><i class="fa-solid fa-phone"></i> Call Us Now: +268 2404 0000</a>
         </div>
+
+        <input type="checkbox" id="check"/>
+        <label for="check" class="checkbtn">
+            <i class="fas fa-bars"></i>
+        </label>
     </header>
 
     <section class="hero">
@@ -38,7 +44,7 @@
                 <div class="hero-text">
                     <h1>Fast & Reliable Loans Tailored for You</h1>
                     <p>Get the financial support you need with flexible repayment options. Apply now and receive quick approval.</p>
-                    <a href="#apply" class="btn">Apply Now</a>
+                    <a href="./apply.html" class="btn">Apply Now</a>
                 </div>
                 <div class="hero-image">
                     <img src="./assets/loan-image.png" alt="Loan Assistance">
@@ -54,7 +60,8 @@
         <div class="container">
             <div class="steps">
                 <div class="step">
-                    <div class="step-icon">📋</div>
+                    <!-- <div class="step-icon">📋</div> -->
+                    <div class="step-icon dimensions"><i class="fa-solid fa-1"></i></div>
                     <!-- <span class="material-symbols-outlined step-icon"> 
                         edit_document
                         </span> -->
@@ -62,20 +69,111 @@
                     <p>Provide your details and loan requirements through our simple online form.</p>
                 </div>
                 <div class="step">
-                    <div class="step-icon">📎</div>
+                    <!-- <div class="step-icon">📎</div> -->
+                    <div class="step-icon dimensions"><i class="fa-solid fa-2"></i></div>
                     <h3>Submit Required Documents</h3>
                     <p>Upload the necessary documents to verify your information.</p>
                 </div>
-                <div class="step">
-                    <div class="step-icon">✅</div>
-                    <h3>Get Approved</h3>
-                    <p>Receive fast approval and access the funds you need.</p>
+                <div class="step step-last">
+                    <!-- <div class="step-icon">✅</div> -->
+                    <div class="step-icon dimensions"><i class="fa-solid fa-3"></i></div>
+                    <h3>Get Approved Quickly</h3>
+                    <p>Receive quick and fast approval and access the funds that you need.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <section class="plans">
+        <h2>Our Loan & Savings Plans</h2>
+        <p>Choose a plan that fits your financial needs and start your journey to financial freedom.</p>
+    
+        <div class="plans-container">
+            <!-- Loan Plan -->
+            <div class="plan-card">
+                <h3>Soft Loan</h3>
+                <p>A low-interest loan for short-term needs with minimal paperwork and quick approval.</p>
+                <ul>
+                    <li>✅ Low-interest rates</li>
+                    <li>✅ Quick approval process</li>
+                    <li>✅ Flexible repayment terms</li>
+                </ul>
+                <a href="apply.html" class="plan-btn">Apply for Loan</a>
+            </div>
+    
+            <!-- Savings Plan -->
+            <div class="plan-card">
+                <h3>Emergency Loan</h3>
+                <p> Fast and easy access to funds for urgent expenses with instant processing.</p>
+                <ul>
+                    <li>✅ Competitive interest rates</li>
+                    <li>✅ No hidden fees</li>
+                    <li>✅ Easy withdrawals & deposits</li>
+                </ul>
+                <a href="apply.html" class="plan-btn">Apply for Loan</a>
+            </div>
 
+            <div class="plan-card">
+                <h3>Long-Term Loan</h3>
+                <p>Flexible repayment for large expenses like business, home, or education.</p>
+                <ul>
+                    <li>✅ Competitive interest rates</li>
+                    <li>✅ No hidden fees</li>
+                    <li>✅ Easy withdrawals & deposits</li>
+                </ul>
+                <a href="apply.html" class="plan-btn">Apply for Loan</a>
+            </div>
+        </div>
+
+        
+    </section>
+    
+
+
+
+    <footer>
+        <div class="footer-container">
+            <!-- About Section -->
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>We are a trusted savings and credit cooperative dedicated to empowering our members with financial solutions, including loans and secure savings options.</p>
+            </div>
+    
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="apply.html">Apply (Membership/Loan)</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="faqs.html">FAQs</a></li>
+                </ul>
+            </div>
+    
+            <!-- Contact Section -->
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p><i class="fa-solid fa-location-dot"></i> 123 Main Street, Eswatini</p>
+                <p><i class="fa-solid fa-phone"></i> <a href="tel:+1234567890">+1 234 567 890</a></p>
+                <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@coopfinance.com">info@coopfinance.com</a></p>
+            </div>
+    
+            <!-- Social Media -->
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            <p>&copy; 2025 Vulindlela Co-op Savings & Loans. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
     
 
     
