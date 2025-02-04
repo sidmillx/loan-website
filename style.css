@@ -1,0 +1,532 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 50px;
+}
+
+header img {
+    width: 200px;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+}
+
+nav ul li a{
+    padding: 10px;
+    margin: 5px;
+    text-decoration: none;
+    color: #111;
+}
+
+.fa-phone, .phone {
+    color: #6200B3;
+
+}
+
+.fa-phone {
+    margin-right: 5px;
+}
+
+nav ul li {
+    position: relative;
+}
+
+/* dropdown section */
+/* #drop-down {
+    display: flex;
+    flex-direction: column;
+
+    position: absolute;
+    width: 100px;
+    background-color: red;
+
+    left: -50%;
+} */
+
+nav ul li ul#drop-down li {
+    display: block;
+}
+
+nav ul li ul#drop-down{
+    width: 100%;
+    position: absolute;
+    z-index: 999;
+    display: none;
+}
+
+nav ul li:hover ul#drop-down {
+    display: block;
+}
+
+
+/* DROPDOWN */
+.dropdown {
+    position: relative;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #0a3d62;
+    min-width: 160px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    list-style-type: none;
+    padding: 0;
+}
+
+.submenu li a {
+    color: white;
+    padding: 10px;
+    display: block;
+}
+
+.submenu li a:hover {
+    background-color: #f39c12;
+}
+
+/* Show submenu on hover */
+.dropdown:hover .submenu {
+    display: block;
+}
+
+
+
+
+/* HERO SECTION */
+.hero {
+    /* background-color: #0a3d62; */
+    background-color: #6200B3;
+    color: white;
+    padding: 60px 20px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.hero-text {
+    flex: 1;
+    max-width: 50%;
+}
+
+.hero-text h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.hero-text p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.btn {
+    /* background-color: #f39c12; */
+    background-color: #EFE7DA;
+    color: #0a3d62;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #e67e22;
+}
+
+.hero-image {
+    flex: 1;
+    text-align: right;
+}
+
+.hero-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+
+/* HOW IT WORKS SECTION */
+
+h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #0a3d62;
+}
+
+.how-it-works {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.step {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    min-width: 250px;
+    transition: transform 0.3s ease;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+}
+
+.step-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    /* color: #0a3d62; */
+}
+
+p {
+    font-size: 1rem;
+    /* color: #555; */
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.material-symbols-outlined {
+    font-size: 36px;
+}
+
+
+/* FEATURES */
+.accordion {
+    width: 900px;
+    margin: 30px auto;
+}
+
+.small-container {
+    background-color: #6200B3;
+    padding: 60px 50px;
+    color: white;
+    text-align: center;
+}
+
+#features {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+
+/* ABOUT CSS *//* General Styles */
+/* body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-color: #f4f4f4;
+} */
+
+.container-about {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.about-hero {
+    background-color: #6200B3;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.about-hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 10px;
+}
+
+.about-hero p {
+    font-size: 1.2rem;
+}
+
+/* About Content */
+.about-content {
+    background: white;
+    padding: 50px 20px;
+    /* text-align: center; */
+}
+
+.about-content h2 {
+    color: #0a3d62;
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.about-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.about-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+.about-content ul li {
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+/* Call to Action */
+.call-to-action {
+    background-color: #f39c12;
+    text-align: center;
+    padding: 50px 20px;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.call-to-action h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.call-to-action .btn {
+    display: inline-block;
+    background: white;
+    color: #f39c12;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.call-to-action .btn:hover {
+    background: #fff3e0;
+}
+
+
+
+
+/* APPLY CSS */
+
+
+/* Container */
+.container-loan {
+    display: flex;
+    max-width: 1100px;
+    margin: 40px auto;
+    gap: 20px;
+}
+
+/* Loan Application Section */
+.loan-form-container {
+    flex: 2;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.loan-form-container h2, h3 {
+    color: #0a3d62;
+}
+
+.loan-type {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.loan-btn {
+    background: #f39c12;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.loan-btn.active {
+    background: #e67e22;
+}
+
+/* Forms */
+.loan-form {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-btn {
+    background: #0a3d62;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.submit-btn:hover {
+    background: #082b46;
+}
+
+/* Membership Section */
+.membership-section {
+    flex: 1;
+    background: #0a3d62;
+    color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.membership-section .btn {
+    background: #f39c12;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+.membership-section .btn:hover {
+    background: #e67e22;
+}
+
+/* MEMBERSHIP */
+
+
+/* Membership Application Section */
+.membership-application {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.application-form-container h2 {
+    color: #0a3d62;
+    margin-bottom: 20px;
+}
+
+.application-form-container p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+/* Form Styling */
+.application-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: left;
+}
+
+.application-form-container form label {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.application-form-container form input, select {
+    padding: 10px;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.application-form-container .submit-btn {
+    background-color: #0a3d62;
+    color: white;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.application-form-container .submit-btn:hover {
+    background-color: #082b46;
+}
