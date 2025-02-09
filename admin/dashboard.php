@@ -3,6 +3,8 @@
     include './includes/admin_header.php';
 ?>
 <div class="main p-3">
+    <h1>Hello, <?= htmlspecialchars($_SESSION['role']) ?></h1>
+
     <h2>Overview</h2>
     <p>Welcome to the Admin Dashboard. Here you can see key performance indicators (KPIs) such as total members, loan applications, pending approvals, etc.</p>
     <!-- Add KPI cards, charts, and summaries as needed -->

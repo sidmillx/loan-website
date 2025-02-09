@@ -1,10 +1,12 @@
 <?php
 // Start session and check if admin is logged in.
 session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$is_verified = $_SESSION['role'] === 'member';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,20 +46,24 @@ if (!isset($_SESSION['admin_logged_in'])) {
             </a>
           </li>
 
+          <?php if ($is_verified): ?>
           <li class="sidebar-item">
             <a href="./loan-application.php" class="sidebar-link" onclick="showContent('members')">
               <i class="fa-solid fa-file-pen"></i>
               <span>Loan Application</span>
             </a>
           </li>
+          <?php endif; ?>
 
-
+          <?php if ($is_verified): ?>
           <li class="sidebar-item">
             <a href="./myloans.php" class="sidebar-link">
               <i class="fa-solid fa-money-bill"></i>
               <span>My loans</span>
             </a>
           </li>
+          <?php endif; ?>
+
 
           <li class="sidebar-item">
             <a href="./loan-products.php" class="sidebar-link">
@@ -83,6 +89,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
               <span>Profile</span>
             </a>
           </li>
+          
           <!-- <li class="sidebar-item">
             <a href="" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
               <i class="fa-solid fa-play-circle"></i>

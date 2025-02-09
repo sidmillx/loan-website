@@ -1,10 +1,13 @@
 <?php
 // Start session and check if admin is logged in.
 session_start();
-if (!isset($_SESSION['admin_logged_in'])) {
+if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
 }
+
+$is_admin = $_SESSION['role'] === 'admin';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -231,19 +234,25 @@ if (!isset($_SESSION['admin_logged_in'])) {
             </a>
           </li>
 
+          <?php if($is_admin): ?>
           <li class="sidebar-item">
             <a href="./document_management.php" class="sidebar-link">
               <i class="fa-solid fa-folder-open"></i>
               <span>Document Management</span>
             </a>
           </li>
+          <?php endif; ?>
 
+
+            <?php if($is_admin): ?>
           <li class="sidebar-item">
             <a href="./reports.php" class="sidebar-link">
               <i class="fas fa-chart-line"></i>
               <span>Reports</span>
             </a>
           </li>
+
+          <?php endif; ?>
 
           <li class="sidebar-item">
             <a href="./notifications.php" class="sidebar-link">
