@@ -1,0 +1,310 @@
+<?php
+// Include database connection (if needed)
+include('../config/db.php');
+
+// Declare variables to store form data
+$full_name = $id_number = $postal_address = $gender = $email = $chief = $contact_details_work = $contact_details = "";
+$marital_status = $dob = $occupation = $employment_number = $name_of_employer = $address_of_employer = $residential_address = "";
+$savings = $entrance_fee = $shares_capital = $laws = $nominee = $date = $signature = $contact = "";
+
+// Define error array for form validation
+$errors = [];
+
+// Function to sanitize form input and avoid XSS (Cross-Site Scripting) attacks
+function sanitize_input($data) {
+    return htmlspecialchars(trim($data)); // Remove unwanted spaces and encode special characters
+}
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize and validate form inputs
+    $full_name = isset($_POST['full_name']) ? htmlspecialchars(trim($_POST['full_name'])) : '';
+    $id_number = isset($_POST['id_number']) ? htmlspecialchars(trim($_POST['id_number'])) : '';
+    $postal_address = isset($_POST['postal_address']) ? htmlspecialchars(trim($_POST['postal_address'])) : ''; 
+    $residential_address = isset($_POST['$residential_address']) ? htmlspecialchars(trim($_POST['residential_address'])) : ''; 
+    $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
+    $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+    $chief = isset($_POST['chief']) ? htmlspecialchars(trim($_POST['chief'])) : '';
+    $contact_details_work = isset($_POST['contact_details_work']) ? htmlspecialchars(trim($_POST['contact_details_work'])) : '';
+    $contact_details = isset($_POST['contact_details']) ? htmlspecialchars(trim($_POST['contact_details'])) : '';
+    $marital_status = isset($_POST['marital_status']) ? htmlspecialchars(trim($_POST['marital_status'])) : ''; // Corrected key
+    $dob = isset($_POST['dob']) ? htmlspecialchars(trim($_POST['dob'])) : '';
+    $occupation = isset($_POST['occupation']) ? htmlspecialchars(trim($_POST['occupation'])) : '';
+    $employment_number = isset($_POST['employment_number']) ? htmlspecialchars(trim($_POST['employment_number'])) : '';
+    $name_of_employer = isset($_POST['name_of_employer']) ? htmlspecialchars(trim($_POST['name_of_employer'])) : '';
+    $address_of_employer = isset($_POST['address_of_employer']) ? htmlspecialchars(trim($_POST['address_of_employer'])) : '';
+    $savings = isset($_POST['savings']) ? htmlspecialchars(trim($_POST['savings'])) : '';
+    $entrance_fee = isset($_POST['entrance_fee']) ? htmlspecialchars(trim($_POST['entrance_fee'])) : '';
+    $shares_capital = isset($_POST['shares_capital']) ? htmlspecialchars(trim($_POST['shares_capital'])) : '';
+    $laws = isset($_POST['laws']) ? 1 : 0; // If checkbox is checked, set to 1, else 0
+    $nominee = isset($_POST['nominee']) ? htmlspecialchars(trim($_POST['nominee'])) : '';
+    $date = isset($_POST['date']) ? htmlspecialchars(trim($_POST['date'])) : '';
+    $signature = isset($_POST['signature']) ? htmlspecialchars(trim($_POST['signature'])) : '';
+    $contact = isset($_POST['contact']) ? htmlspecialchars(trim($_POST['contact'])) : '';
+
+
+
+    
+
+
+    // Further validation, e.g., checking if fields are not empty or email format
+    if (empty($full_name) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        // Handle validation errors
+        $error_message = "Please fill in all required fields correctly.";
+    } else {
+        // Prepare the SQL statement with placeholders
+        $sql = "INSERT INTO membership_applications (full_name, id_number, postal_address, gender, email, chief, contact_details_work, contact_details, marital_status, dob, occupation, employment_number, name_of_employer, address_of_employer, savings, residential_address, entrance_fee, shares_capital, laws, nominee, date, signature, contact)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+        // Prepare the statement
+        $stmt = mysqli_prepare($conn, $sql);
+
+        // Check if the statement was prepared successfully
+        if ($stmt === false) {
+        die('Error preparing the query: ' . mysqli_error($conn));
+        }
+
+        // Bind the parameters to the prepared statement
+        mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssss", $full_name, $id_number, $postal_address, $gender, $email, $chief, $contact_details_work, $contact_details, $marital_status, $dob, $occupation, $employment_number, $name_of_employer, $address_of_employer, $savings, $residential_address, $entrance_fee, $shares_capital, $laws, $nominee, $date, $signature, $contact);
+
+        // Execute the prepared statement
+        if (mysqli_stmt_execute($stmt)) {
+        // Successfully inserted data, now send email or notification
+        $success_message = "Your membership application has been submitted successfully!";
+        echo "<p>Thank you for applying! Your application has been submitted and is under review.</p>";
+
+
+        // GET THE AUTO GENERATED APPLICANT ID
+        $applicant_id = $conn->insert_id;
+        // Optionally send an email to the user
+        // mail($email, "Membership Application", "Your application has been received.");
+        } else {
+        // Handle database error
+        $error_message = "There was an issue submitting your application.";
+        }
+
+        // Close the statement
+        mysqli_stmt_close($stmt);
+
+    }
+
+
+    
+    // PHP FILE UPLOADS
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . "."; //comment this
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image."; // see what to do with this
+            $uploadOk = 0;
+        }
+    }
+    
+    // Check if file already exists
+    if (file_exists($target_file)) {
+        echo "Sorry, file already exists.";
+        $uploadOk = 0;
+    }
+    
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 500000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+    
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+
+            // Save the file path to the database
+            // $applicant_id = $POST['applicant_id'];
+            $sql = "INSERT INTO uploaded_files (applicant_id, file_path) VALUES ('$applicant_id', '$target_file')";
+            echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+
+            if($conn->query($sql) === TRUE) {
+                echo "File uploaded successfully";
+            } else {
+                echo "Error saving file to database: " . $conn->error;
+            }
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs - Vulindlela Savings & Credit Co-operative</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">Vulindlela</div>
+        <!-- Navigation Links -->
+        <nav>
+            <ul>
+                <li><a href="./index.html" class="active">Home</a></li>
+                <li><a href="./membership-apply.html">Apply</a></li>
+                <li><a href="./faqs.html">FAQs</a></li>
+                <li><a href="./about.html">About</a></li>
+            </ul>
+        </nav>
+        <!-- Contact Information -->
+        <div class="phone">
+            <a href="tel:+1234567890"><i class="fa-solid fa-phone"></i> Call Us Now: +268 2404 0000</a>
+        </div>
+    </header>
+
+    <!-- Membership Application Section -->
+    <section class="membership-application">
+        <div class="container">
+            <div class="application-form-container">
+                <h2>Apply for Membership</h2>
+                <p>Join Vulindlela yeMaswati Savings & Credit Co-Operative today and access a variety of financial benefits.</p>
+
+                <!-- Membership Application Form -->
+                <form action="#" method="POST" enctype="multipart/form-data">
+                    <!-- Full Name -->
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="full_name" placeholder="Enter your full name" required>
+
+                    <!-- ID Number -->
+                    <label for="id-number">ID Number</label>
+                    <input type="text" id="id-number" name="id_number" placeholder="Enter your ID number" required>
+
+                    <!-- Postal Address -->
+                    <label for="postal-address">Postal Address</label>
+                    <input type="text" id="postal-address" name="postal_address" placeholder="Enter your postal address" required>
+
+                    <!-- Gender -->
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+
+                    <!-- Residential Address -->
+                    <label for="residential-address">Residential Address</label>
+                    <input type="text" id="residential_address" name="residential_address" placeholder="Enter your residential address" required>
+
+                    <!-- Chief -->
+                    <label for="chief">Chief</label>
+                    <input type="text" id="chief" name="chief" placeholder="Enter your chief" required>
+
+                    <!-- Work Contact -->
+                    <label for="contact-details-work">Contact (Work)</label>
+                    <input type="number" id="contact-details-work" name="contact_details_work" placeholder="Enter your work contact" required>
+
+                    <!-- Cell Contact -->
+                    <label for="contact-details">Contact (Cell)</label>
+                    <input type="number" id="contact-details" name="contact_details" placeholder="Enter your cell number" required>
+
+                    <!-- Marital Status -->
+                    <label for="marital-status">Marital Status</label>
+                    <input type="text" id="marital_status" name="marital_status" placeholder="Enter your marital status" required>
+
+                    <!-- Date of Birth -->
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob" name="dob" required>
+
+                    <!-- Occupation -->
+                    <label for="occupation">Occupation</label>
+                    <input type="text" id="occupation" name="occupation" placeholder="Enter your occupation" required>
+
+                    <!-- Employment Number -->
+                    <label for="employment-number">Employment#</label>
+                    <input type="text" id="employment-number" name="employment_number" placeholder="Enter your employment number" required>
+
+                    <!-- Name of Employer -->
+                    <label for="name-of-employer">Name of Employer</label>
+                    <input type="text" id="name-of-employer" name="name_of_employer" placeholder="Enter your employer's name" required>
+
+                    <!-- Employer's Address -->
+                    <label for="address-of-employer">Address of Employer</label>
+                    <input type="text" id="address-of-employer" name="address_of_employer" placeholder="Enter your employer's address" required>
+
+
+
+                    <!-- Email -->
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+                
+                    <!-- Minimum Savings Agreement -->
+                    <label for="savings">I agree to make a minimum savings of:</label>
+                    <input type="number" id="savings" name="savings" required placeholder="Enter amount" min="1">
+
+                    <!-- Entrance Fee and Shares Capital -->
+                    <p>If application is accepted I agree to pay an Entrance fee of E <input type="number" name="entrance_fee" required> & Shares Capital of E <input type="number" name="shares_capital" required></p>
+
+                    <!-- Agreement to Abide by Society Laws -->
+                    <label for="laws">I agree to abide by all the laws of the society:</label>
+                    <input type="checkbox" id="laws" name="laws" required>
+
+                    <!-- Nominee -->
+                    <label for="nominee">Nominee</label>
+                    <input type="text" id="nominee" name="nominee" placeholder="Enter nominee details" required>
+
+                    <!-- New Fields -->
+                    <label for="date">Date</label>
+                    <input type="date" id="date" name="date" required>
+
+                    <label for="signature">Signature</label>
+                    <input type="text" id="signature" name="signature" placeholder="Enter your signature" required>
+
+                    <label for="contact">Contact</label>
+                    <input type="text" id="contact" name="contact" placeholder="Enter your contact number" required>
+
+                    <!-- DOCUMENTS -->
+                    <label for="id_card">Identity Document</label>
+                    Select an image to upload:
+                    <input type="file" name="fileToUpload" id="fileToUpload"> 
+
+                    <label for="id_card">Recent Payslip</label>
+                    Select an image to Upload
+                    <input type="file" name="recent_payslip" id="recent_payslip"> 
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">Apply for Membership</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
+
+
+<!-- HAVE TO ADD IMMEDIATE FEEDBACK, THAT THE FORM WAS SUCCESSFULLY RECIEVED WAITING FOR REVIEW. MAYBE GIVE LOGIN DETAILS IF SUCCESSFUL -->
+ <!-- THERE IS A BUG ON RESIDENTIAL ADDRESS, IT IS NOT SHOWING IN THE DATA BASE, FIX IT  -->
