@@ -211,6 +211,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             padding: 50px;
         }
+
+        @media (min-width: 768px) {
+            .application-form-container {
+                padding: 12px !important;
+            }
+        }
   
     </style>
 </head>
@@ -220,6 +226,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Header Section -->
     <header>
         <div class="logo">Vulindlela</div>
+        <i class="fa-solid fa-bars fa-xl"></i>
+
         <!-- Navigation Links -->
         <nav>
             <ul>
@@ -423,6 +431,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         });
 
+    </script>
+
+<script>
+        // Select the menu icon
+        const menuIcon = document.querySelector('.fa-bars');
+        // Select the navigation menu
+        const navMenu = document.querySelector('nav');
+
+        // Add a click event listener to the menu icon
+        menuIcon.addEventListener('click', () => {
+            // Toggle the 'active' class on the navigation menu
+            navMenu.classList.toggle('active');
+        });
     </script>
     
 

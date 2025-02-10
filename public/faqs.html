@@ -14,6 +14,8 @@
   <header>
         
     <div class="logo">Vulindlela</div>
+    <i class="fa-solid fa-bars fa-xl"></i>
+
      <!-- <img src="./assets/vulindlela.png" alt=""> -->
     <nav>
         <ul>
@@ -157,7 +159,7 @@
               <h4>Quick Links</h4>
               <ul>
                   <li><a href="index.html">Home</a></li>
-                  <li><a href="apply.html">Apply</a></li>
+                  <li><a href="./membership-apply.php">Apply</a></li>
                   <li><a href="about.html">About Us</a></li>
                   <li><a href="faqs.html">FAQs</a></li>
               </ul>
@@ -210,6 +212,19 @@
       });
 
   </script>
+
+<script>
+  // Select the menu icon
+  const menuIcon = document.querySelector('.fa-bars');
+  // Select the navigation menu
+  const navMenu = document.querySelector('nav');
+
+  // Add a click event listener to the menu icon
+  menuIcon.addEventListener('click', () => {
+      // Toggle the 'active' class on the navigation menu
+      navMenu.classList.toggle('active');
+  });
+</script>
   
 </body>
 </html>

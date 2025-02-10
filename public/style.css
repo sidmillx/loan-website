@@ -18,18 +18,25 @@ body {
     background-color: var(--background-color);
 }
 
-/* HEADER */
 header {
+    width: 100%;
+    height: 80px;
+    background-color: var(--primary-color);
+
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
     padding: 0 50px;
-    background-color: var(--primary-color);
 }
 
 .logo {
     color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+i.fa-bars {
+    display: none;
 }
 
 nav ul {
@@ -37,25 +44,90 @@ nav ul {
     display: flex;
 }
 
+nav ul li a {
+    display: block;
+    color: #fff;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    transition:0.2s ease-in-out;
+    -webkit-transition:0.2s ease-in-out;
+    -moz-transition:0.2s ease-in-out;
+    -ms-transition:0.2s ease-in-out;
+    -o-transition:0.2s ease-in-out;
 
-nav ul li a{
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+nav ul li a.active {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
+@media only screen and(max-width: 1320px){
+    header {
+        padding: 0 50px;
+    }
+}
+
+@media only screen and(max-width: 1320px){
+    header {
+        padding: 0 30px;
+    }
+}
+
+
+
+/* HEADER */
+
+/* 00 COMMENT 000 */
+/* header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+    padding: 0 50px;
+    background-color: var(--primary-color);
+} */
+
+
+/* .logo {
+    color: white;
+} */
+
+/* nav ul {
+    list-style-type: none;
+    display: flex;
+} */
+
+
+/* nav ul li a{
     padding: 10px;
     margin: 5px;
     text-decoration: none;
     color: white;
-}
+} */
 
-nav ul li a.active, nav ul li a:hover {
+/* nav ul li a.active, nav ul li a:hover {
     color: var(--secondary-color);
     transition: .5s;
     -webkit-transition: .5s;
     -moz-transition: .5s;
     -ms-transition: .5s;
     -o-transition: .5s;
-}
+} */
 
 .phone.fa-phone, .phone {
-    /* color: #6200B3; */
     color: var(--secondary-color);
 
 }
@@ -64,15 +136,16 @@ nav ul li a.active, nav ul li a:hover {
     margin-right: 5px;
 }
 
-.fa-caret-down {
+/* .fa-caret-down {
     color: white;
     margin-left: 8px;
-    /* background-color: white; */
-}
+} */
 
-nav ul li {
+/* nav ul li {
     position: relative;
-}
+} */
+
+/* 00 END OF COMMENTS 00 */
 
 /* dropdown section */
 /* #drop-down {
@@ -86,24 +159,25 @@ nav ul li {
     left: -50%;
 } */
 
-nav ul li ul#drop-down li {
+/* nav ul li ul#drop-down li {
     display: block;
-}
-
+} */
+/* 
 nav ul li ul#drop-down{
     width: 100%;
     position: absolute;
     z-index: 999;
     display: none;
-}
+} */
 
-nav ul li:hover ul#drop-down {
+/* nav ul li:hover ul#drop-down {
     display: block;
-}
+} */
 
+/* 00 END OF 000 */
 
 /* DROPDOWN */
-.dropdown {
+/* .dropdown {
     position: relative;
 }
 
@@ -129,7 +203,7 @@ nav ul li:hover ul#drop-down {
 .submenu li a:hover {
     background-color: var(--secondary-color);
     color: var(--text-color);
-}
+} */
 
 /* Show submenu on hover */
 .dropdown:hover .submenu {
@@ -155,8 +229,8 @@ nav ul li:hover ul#drop-down {
 }
 
 .phone a {
-    background-color: var(--secondary-color); /* Gold */
-    color: var(--primary-color); /* Deep Blue */
+    background-color: var(--secondary-color); 
+    color: var(--primary-color); 
     padding: 8px 15px;
     text-decoration: none;
     font-weight: bold;
@@ -165,9 +239,9 @@ nav ul li:hover ul#drop-down {
 }
 
 .phone a:hover {
-    background-color: var(--cta-buttons); /* Dark Green */
+    background-color: var(--cta-buttons); 
     color: white;
-}
+} 
 
 
 
@@ -251,6 +325,8 @@ nav ul li:hover ul#drop-down {
     border-radius: 10px;
 }
 
+
+
 @media (max-width:768px){
 
     .hero {
@@ -275,9 +351,9 @@ nav ul li:hover ul#drop-down {
     .hero-image {
         order: -1;
     }
-    .phone {
+    /* .phone {
         display: none;
-    }
+    } */
     .hero p {
         width: 100%;
     }
@@ -290,6 +366,31 @@ nav ul li:hover ul#drop-down {
     .hero-text.btn {
         width: 100%;
     }
+   
+    /* i.fa-bars {
+        display: block;
+        font-size: 1.5rem;
+        color: white;
+        cursor: pointer;
+
+        position: absolute;
+        top: 40px;
+        right: 40px;
+}
+    nav {
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 100vw;
+        background-color: var(--primary-color);
+        transition: 0.2s ease in ease-in-out    ;
+        -webkit-transition: 0.2s ease in ease-in-out    ;
+        -moz-transition: 0.2s ease in ease-in-out    ;
+        -ms-transition: 0.2s ease in ease-in-out    ;
+        -o-transition: 0.2s ease in ease-in-out    ;
+
+        display: block;
+} */
 }
 
 /* HOW IT WORKS SECTION */
@@ -713,6 +814,12 @@ input, select, textarea {
     text-align: center;
 }
 
+@media (max-width: 768px){
+    .membership-application {
+        padding: 20px;
+    }
+}
+
 .application-form-container h2 {
     /* color: #0a3d62; */
     color: var(--primary-color);
@@ -945,14 +1052,14 @@ footer {
 }
 
 @media (max-width: 1118px) {
-    .logo {
+    /* .logo {
         left: 8%;
-    }
+    } */
 }
 
 
 @media (max-width: 925px) {
-    header.logo {
+    /* header.logo {
         font-size: 30px;
         padding-left: 50px;
         left: 6%;
@@ -960,9 +1067,9 @@ footer {
 
     nav ul li a {
         font-size: 16px;
-    }
+    } */
 }
-
+/* 
 @media (max-width: 858px){
     #btn {
         display: block;
@@ -973,7 +1080,6 @@ footer {
         position: fixed;
         width: 100%;
         height: 100vh;
-        /* background-color: #6200B3; */
         background-color: var(--primary-color);
         color: white;
         top: 80px;
@@ -1002,7 +1108,7 @@ footer {
     #check:checked ~ nav ul {
         left: 0;
     }
-}
+} */
 
 
 /* SECTION LOANS */
@@ -1105,5 +1211,58 @@ footer {
 @media (max-width: 768px) {
     .loan-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+@media only screen and (max-width: 900px){
+    i.fa-bars {
+        display: block;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    nav {
+        height: 0;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        width: 100vw;
+        background: var(--primary-color);
+        transition: 0.2s ease    ;
+        -webkit-transition: 0.2s ease    ;
+        -moz-transition: 0.2s ease    ;
+        -ms-transition: 0.2s ease    ;
+        -o-transition: 0.2s ease    ;
+        overflow: hidden;
+
+        z-index: 999;
+
+    }
+    nav.active {
+        height: 450px;
+    }
+
+    nav ul {
+        display: block;
+        width: fit-content;
+        margin: 80px auto 0 auto;
+        text-align: center;
+        transition: 0.5s    ;
+        -webkit-transition: 0.5s    ;
+        -moz-transition: 0.5s    ;
+        -ms-transition: 0.5s    ;
+        -o-transition: 0.5s    ;
+        opacity: 0;
+    }
+    nav.active ul {
+        opacity: 1;
+    }
+    nav ul li a {
+        margin-bottom: 12px;
+    }
+
+    .phone {
+        display: none;
     }
 }

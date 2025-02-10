@@ -55,13 +55,18 @@ h1 {
 .cta-button:hover {
     background-color: #FFCA2C;
 }
+
+
+
+    
     </style>
 </head>
 
 <body>
     <header>
         
-        <div class="logo">Vulindlela</div>
+        <div class="logo">Vulindlela </div>
+        <i class="fa-solid fa-bars fa-xl"></i>
         <nav>
             <ul>
                 <li><a href="./index.html">Home</a></li>
@@ -350,7 +355,7 @@ h1 {
                 <h4>Quick Links</h4>
                 <ul>
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="apply.html">Apply</a></li>
+                    <li><a href="./membership-apply.php">Apply</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="faqs.html">FAQs</a></li>
                 </ul>
@@ -398,6 +403,19 @@ h1 {
             }
         });
 
+    </script>
+
+    <script>
+        // Select the menu icon
+        const menuIcon = document.querySelector('.fa-bars');
+        // Select the navigation menu
+        const navMenu = document.querySelector('nav');
+
+        // Add a click event listener to the menu icon
+        menuIcon.addEventListener('click', () => {
+            // Toggle the 'active' class on the navigation menu
+            navMenu.classList.toggle('active');
+        });
     </script>
     
     
