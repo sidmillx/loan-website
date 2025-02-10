@@ -19,7 +19,7 @@ html {
     line-height: 1.5rem;
 }
 
-body {
+/* body {
     min-height: 100vh;
     min-height: 100dvh;
     background-color: var(--base-clr);
@@ -27,8 +27,8 @@ body {
 
     display: grid;
     grid-template-columns: auto 1fr;
-}
-
+} */
+/* 
 #sidebar {
     box-sizing: border-box;
     height: 100vh;
@@ -36,7 +36,7 @@ body {
     padding: 5px 1em;
     background-color: var(--base-clr);
     border-right: 1px solid var(--line-clr);
-    /*MAKEITnotscrollable*/position: sticky;
+    position: sticky;
     top: 0;
     align-self: start;
     transition: 300ms ease-in-out;
@@ -47,7 +47,7 @@ body {
 
     overflow: hidden;
     text-wrap: nowrap;
-}
+} */
 
 #sidebar.close{
     padding: 5px;

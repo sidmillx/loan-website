@@ -8,7 +8,9 @@ function toggleSidebar(){
     Array.from(sidebar.getElementsByClassName('show')).forEach(ul => {
         ul.classList.remove('show');
         ul.previousElementSibling.classList.remove('rotate');
-    })
+    });
+
+    
 }
 
 function toggleSubMenu(button){

@@ -234,17 +234,17 @@ $is_admin = $_SESSION['role'] === 'admin';
             </a>
           </li>
 
-          <?php if($is_admin): ?>
+          <!-- <//?php if($is_admin): ?> -->
           <li class="sidebar-item">
             <a href="./document_management.php" class="sidebar-link">
               <i class="fa-solid fa-folder-open"></i>
               <span>Document Management</span>
             </a>
           </li>
-          <?php endif; ?>
+          <!-- <//?php endif; ?> -->
 
 
-            <?php if($is_admin): ?>
+            <!-- <//?php if($is_admin): ?> -->
           <li class="sidebar-item">
             <a href="./reports.php" class="sidebar-link">
               <i class="fas fa-chart-line"></i>
@@ -252,7 +252,7 @@ $is_admin = $_SESSION['role'] === 'admin';
             </a>
           </li>
 
-          <?php endif; ?>
+          <!-- <//?php endif; ?> -->
 
           <li class="sidebar-item">
             <a href="./notifications.php" class="sidebar-link">

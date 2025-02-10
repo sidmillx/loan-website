@@ -18,7 +18,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['role'] = $user['role'];
         $_SESSION['membership_status'] = $user['status']; // Adjusted to match your DB field
 
+    
+
         session_regenerate_id(true); // Prevent session fixation
+
 
         header('Location: dashboard.php');
         exit();

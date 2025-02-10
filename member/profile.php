@@ -1,6 +1,36 @@
 <?php 
+
+  session_start();
+  
+  if(!isset($_SESSION['user_id'])){
+      header("Location: login.php");
+      exit();
+    }
+    include('../config/db.php');
+
+  $user_id = $_SESSION['user_id'];
+   // Make sure user_id is available before executing the SQL query
+   if (isset($user_id)) {
+    // Read the user data from the database where id is user_id
+    $sql = "SELECT * FROM users WHERE id = $user_id";
+    $result = $conn->query($sql);
+
+    // Check if the query executed successfully
+    if (!$result){
+        die("Invalid query: " . $conn->error);
+    }
+
+    // Fetch the user data from the result
+    $row = $result->fetch_assoc();
+} else {
+    die("User ID is not set.");
+}
+
+  
   $pageTitle = 'Profile';
   include './includes/member_header.php'; 
+
+
 ?>
 
 <body>
@@ -16,7 +46,9 @@
             <div class="profile-header">
                 <img src="../assets/avatar.png" alt="Profile Picture">
                 <div>
-                    <h2>John Doe</h2>
+                    <?php if (isset($_SESSION['user_id'])):?>
+                    <h2><?php echo htmlspecialchars($row['full_name']); ?><h2>
+                    <?php endif; ?>
                     <p>Member ID: 123456789</p>
                 </div>
             </div>

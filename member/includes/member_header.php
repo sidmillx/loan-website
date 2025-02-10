@@ -1,12 +1,12 @@
 <?php
 // Start session and check if admin is logged in.
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+// session_start();
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php");
+//     exit();
+// }
 
-$is_verified = $_SESSION['role'] === 'member';
+// $is_verified = $_SESSION['role'] === 'member';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,10 +23,12 @@ $is_verified = $_SESSION['role'] === 'member';
     <!-- LOAN APPLICATION -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <script type="text/javascript" src="./app.js" defer></script>
+
 </head>
 <body>
-    <div class="wrapper">
-      <aside id="sidebar">
+    <!-- <div class="wrapper"> -->
+      <!-- <aside id="sidebar">
         <div class="d-flex">
           <button id="toggle-btn" type="button">
             <img src="../assets/grid-icon.png" alt="grid-icon">
@@ -46,23 +48,23 @@ $is_verified = $_SESSION['role'] === 'member';
             </a>
           </li>
 
-          <?php if ($is_verified): ?>
+          <//?php if ($is_verified): ?>
           <li class="sidebar-item">
             <a href="./loan-application.php" class="sidebar-link" onclick="showContent('members')">
               <i class="fa-solid fa-file-pen"></i>
               <span>Loan Application</span>
             </a>
           </li>
-          <?php endif; ?>
+          <//?php endif; ?>
 
-          <?php if ($is_verified): ?>
+          <//?php if ($is_verified): ?>
           <li class="sidebar-item">
             <a href="./myloans.php" class="sidebar-link">
               <i class="fa-solid fa-money-bill"></i>
               <span>My loans</span>
             </a>
           </li>
-          <?php endif; ?>
+          <//?php endif; ?>
 
 
           <li class="sidebar-item">
@@ -89,14 +91,7 @@ $is_verified = $_SESSION['role'] === 'member';
               <span>Profile</span>
             </a>
           </li>
-          
-          <!-- <li class="sidebar-item">
-            <a href="" class="sidebar-link" data-bs-toggle="collapse" data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-              <i class="fa-solid fa-play-circle"></i>
-              <span>Multilevel</span>
-            </a>
-          </li> -->
-          
+
   
           <li class="sidebar-item">
             <a class="sidebar-link" href="./settings.php">
@@ -115,7 +110,82 @@ $is_verified = $_SESSION['role'] === 'member';
           </div>
         </div>
       
-      </aside>
+      </aside> -->
+
+      
+    <nav id="sidebar">
+        <ul>
+            <li>
+                <span class="logo">Vulindlela</span>
+                <button onclick="toggleSidebar()" id="toggle-btn">
+                    <!-- Add icon -->
+                  <!-- <img src="../assets/grid-icon.png" alt="grid-icon" style="width: 35px; height: auto;"> -->
+                  <i class="fa-solid fa-bars fa-lg"></i>
+                </button>
+            </li>
+            <li class="active">
+                <a href="./dashboard.php">
+                    <i class="fa-solid fa-home fa-lg" data-bs-toggle="tooltip" title="Dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+
+            
+            <li>
+              <button onclick="toggleSubMenu(this)" class="dropdown-btn" >
+                <i class="fa-solid fa-file-pen fa-lg"  data-bs-toggle="tooltip" title="Apply For A Loan"></i>
+                <span>Apply for Loan</span>
+                <i class="fa-solid fa-angle-down fa-lg"></i>
+              </button>
+              <ul class="sub-menu">
+                <div>
+                  <li><a href="./short-term-loan.php">Short Term Loan</a></li>
+                  <li><a href="./emergency-loan.php">Emergency Loan</a></li>
+                  <li><a href="./long-term-loan.php">Long Term Loan</a></li>
+                </div>
+                
+              </ul>
+            </li>
+
+            <li>
+                <a href="./myloans.php">
+                    <i class="fa-solid fa-money-bill fa-lg" data-bs-toggle="tooltip" title="My Loans"></i>
+                    <span>My Loans</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="./loan-products.php">
+                    <i class="fa-solid fa-clipboard-list fa-xl" data-bs-toggle="tooltip" title="Loan Products"></i>
+                    <span>Loan Products</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="./notifications.php">
+                  <i class="fa-solid fa-bell fa-lg" data-bs-toggle="tooltip" title="Notifications"></i>
+                  <span>Notifications</span>
+                </a>
+            </li>
+
+
+
+            <li>
+                <a href="./settings.php">
+                    <i class="fa-solid fa-cog fa-lg" data-bs-toggle="tooltip" title="Settings"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="./profile.php">
+                  <i class="fa-solid fa-user fa-lg" data-bs-toggle="tooltip" title="Profile"></i>
+                  <span>Profile</span>
+                </a>
+            </li>
+        </ul>
+        <!-- simple icons.io  -->
+    </nav>
 
       <!-- <div class="main p-3">
         <div>
