@@ -266,6 +266,12 @@ nav ul li:hover ul#drop-down {
         width: 100%;
 
     }
+
+    .hero-text {
+        max-width: 100%;
+        text-align: center;
+        padding: 20px;
+    }
     .hero-image {
         order: -1;
     }
@@ -326,21 +332,42 @@ h2 {
 .how-it-works {
     background-color: #f4f4f4;
     text-align: center;
-    padding: 60px 20px;
+    padding: 90px 20px 110px 20px;
 }
 
-.container {
+.container, .container-loan-container {
     max-width: 1000px;
     margin: 0 auto;
 }
 
+
+.container-loan-container h1 {
+    text-align: center;;
+}
 .how-it-works-container {
     max-width: 1000px;
     margin: 0 auto;
 }
+.steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.step {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--primary-color);
+    padding: 30px;
+}
 
 
-@media (max-width: 768px){
+/* @media (max-width: 768px){
     .steps {
         display: flex;
         flex-direction: column;
@@ -350,8 +377,8 @@ h2 {
     .step {
         align-self: center;
     }
-}
-.steps {
+} */
+/* .steps {
     display: flex;
     justify-content: space-between;
     gap: 20px;
@@ -371,11 +398,11 @@ h2 {
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
+} */
 
 
 
-.step:hover {
+/* .step:hover {
     transform: translateY(-5px);
 }
 
@@ -387,9 +414,8 @@ h2 {
 .step h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    /* color: #0a3d62; */
     color: var(--primary-color);
-}
+} */
 
 p {
     font-size: 1rem;
@@ -433,14 +459,22 @@ p {
 }
 .small-container p {
     color: white;
+    font-size: 1.1rem !important;
 }
 
-#features {
+.small-container h1 {
+    font-size: 2rem !important;
+}
+
+/* #features {
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+} */
 
+.footer-section ul li a {
+    text-decoration: underline;
+}
 
 
 /* ABOUT CSS *//* General Styles */
@@ -467,13 +501,9 @@ p {
     background-color: var(--primary-color);
     color: white;
     text-align: center;
-    padding: 40px 20px;
 }
 
-.about-hero h1 {
-    font-size: 2.8rem;
-    margin-bottom: 10px;
-}
+
 
 .about-hero p {
     font-size: 1.2rem;
@@ -483,6 +513,8 @@ p {
 .about-content {
     background: white;
     padding: 50px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
     /* text-align: center; */
 }
 
@@ -491,6 +523,7 @@ p {
     color: var(--primary-color);
     font-size: 2rem;
     margin-bottom: 15px;
+
 }
 
 .about-content p {
@@ -511,13 +544,22 @@ p {
 
 /* Call to Action */
 .call-to-action {
-    background-color: #f39c12;
+    /* background-color: #f39c12;
     text-align: center;
     padding: 50px 20px;
     color: var(--text-color);
 
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
+
+    background-color: #f39c12;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    max-width: 600px;
 }
 
 .call-to-action h2 {
@@ -527,9 +569,9 @@ p {
 
 .call-to-action .btn {
     display: inline-block;
-    background: white;
-    /* color: #f39c12; */
-    color: var(--secondary-color);
+    background: var(--primary-color);
+    /*color: #f39c12;
+    */color: #fff;
     font-size: 1.2rem;
     font-weight: bold;
     padding: 12px 24px;
@@ -537,6 +579,10 @@ p {
     text-decoration: none;
     margin-top: 10px;
     transition: background 0.3s ease;
+    -webkit-transition: background 0.3s ease;
+    -moz-transition: background 0.3s ease;
+    -ms-transition: background 0.3s ease;
+    -o-transition: background 0.3s ease;
 }
 
 .call-to-action .btn:hover {
@@ -616,7 +662,7 @@ input, select, textarea {
 
 .submit-btn {
     /* background: #0a3d62; */
-    color: var(--primary-color);
+    background: #082b46;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -809,18 +855,31 @@ footer {
 }
 
 .footer-container {
-    display: flex;
+    /* display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     max-width: 1200px;
-    margin: auto;
+    margin: auto; */
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.footer-section {
+@media (max-width: 768px){
+    .footer-container {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+}
+
+/* .footer-section {
     flex: 1;
     min-width: 220px;
     padding: 10px;
-}
+} */
 
 .footer-section h4 {
     color: var(--secondary-color); /* Gold */
@@ -942,5 +1001,109 @@ footer {
 
     #check:checked ~ nav ul {
         left: 0;
+    }
+}
+
+
+/* SECTION LOANS */
+.container-loan-container {
+    max-width: 1200px;
+    /* margin: 0 auto; */
+    margin-top: 35px;
+    padding: 2rem;
+}
+
+.container-loan-container h1 {
+    text-align: center;
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+
+
+.loan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.loan-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border-top: 4px solid var(--primary-color);
+}
+
+.loan-card:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+}
+
+.loan-card-header {
+    background: linear-gradient(to right, var(--primary-color), var(--primary-color-light));
+    color: white;
+    padding: 1.5rem;
+}
+
+.loan-card-title {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.loan-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+}
+
+.loan-card-description {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.feature-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.feature-icon {
+    color: #22c55e;
+    margin-right: 0.5rem;
+}
+
+.loan-card-footer {
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.apply-button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.apply-button:hover {
+    background-color: var(--primary-color-light);
+}
+
+@media (max-width: 768px) {
+    .loan-grid {
+        grid-template-columns: 1fr;
     }
 }

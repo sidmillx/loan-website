@@ -164,6 +164,55 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+         .download-section {
+            text-align: center;
+            padding: 20px;
+            background-color: #e8f4fd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+
+            max-width: 700px;
+            margin: 10px auto 30px auto;
+
+        }
+        .download-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .download-btn:hover {
+            background-color: #2980b9;
+            color: #fff;
+        }
+
+        .download-section h2, .download-section p, .download-section a {
+            margin: 10px 0;
+        }
+        .or {
+            margin-bottom: 20px;
+        }
+
+        .application-form-container {
+            max-width: 1000px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 50px;
+        }
+  
+    </style>
 </head>
 
 <body>
@@ -174,8 +223,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <!-- Navigation Links -->
         <nav>
             <ul>
-                <li><a href="./index.html" class="active">Home</a></li>
-                <li><a href="./membership-apply.html">Apply</a></li>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./membership-apply.php">Apply</a></li>
                 <li><a href="./faqs.html">FAQs</a></li>
                 <li><a href="./about.html">About</a></li>
             </ul>
@@ -189,8 +238,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Membership Application Section -->
     <section class="membership-application">
         <div class="container">
+
+            <section class="download-section">
+                <h2>Download Form</h2>
+                <p>Download the application form and submit it personally to our office.</p>
+                <a href="./download-forms.html" class="download-btn">Download Application Form</a>
+                <p>Please print, fill out, and bring the form to our office during business hours.</p>
+            </section>
+
+            <h2 class="or">or</h2>
+
             <div class="application-form-container">
-                <h2>Apply for Membership</h2>
+                <h2>Apply for Membership Online</h2>
                 <p>Join Vulindlela yeMaswati Savings & Credit Co-Operative today and access a variety of financial benefits.</p>
 
                 <!-- Membership Application Form -->
@@ -301,6 +360,71 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </section>
+
+        
+    <footer>
+    <div class="footer-container">
+        <!-- About Section -->
+        <div class="footer-section">
+            <h4>About Us</h4>
+            <p>We are a trusted savings and credit cooperative dedicated to empowering our members with financial solutions, including loans and secure savings options.</p>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="apply.html">Apply</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="faqs.html">FAQs</a></li>
+            </ul>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="footer-section">
+            <h4>Contact Us</h4>
+            <p><i class="fa-solid fa-location-dot"></i> Mbabane, Eswatini</p>
+            <p><i class="fa-solid fa-phone"></i> <a href="tel:+1234567890">+268 2404 2876</a></p>
+            <p><i class="fa-solid fa-envelope"></i> <a href="mailto:info@coopfinance.com">info@coopfinance.com</a></p>
+        </div>
+
+        <!-- Social Media -->
+        <!-- <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div> -->
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2025 Vulindlela Co-op Savings & Loans. All Rights Reserved.</p>
+    </div>
+</footer>
+
+    <script>
+        // Select all navigation links
+        const navLinks = document.querySelectorAll('nav ul li a');
+
+        // Get the current page URL
+        const currentUrl = window.location.pathname;
+
+        // Loop through each link to check if it matches the current URL
+        navLinks.forEach(link => {
+            // Remove 'active' class from all links
+            link.classList.remove('active');
+
+            // If the link's href matches the current URL, add 'active' class
+            if (link.getAttribute('href').includes(currentUrl.split('/').pop())) {
+                link.classList.add('active');
+            }
+        });
+
+    </script>
+    
 
 </body>
 </html>
