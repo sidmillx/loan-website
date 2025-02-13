@@ -13,3 +13,8 @@
 13. Fix residential address bug
 14. In loan status, add date approved and approved by who
 15. Send member number on signup when approved
+
+
+
+FRONTEND
+- email

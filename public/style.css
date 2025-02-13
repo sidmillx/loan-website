@@ -309,7 +309,7 @@ nav ul li ul#drop-down{
 }
 
 .btn:hover {
-    background-color: #228B22;
+    background-color: #fccf4a;
 }
 
 .hero-image {
@@ -824,6 +824,7 @@ input, select, textarea {
     /* color: #0a3d62; */
     color: var(--primary-color);
     margin-bottom: 20px;
+    margin-top: 12px;
 }
 
 .application-form-container p {
@@ -1158,6 +1159,7 @@ footer {
 .loan-card-title {
     margin: 0;
     font-size: 1.5rem;
+    text-align: center;
 }
 
 .loan-card-content {
@@ -1194,7 +1196,7 @@ footer {
 
 .apply-button {
     background-color: var(--primary-color);
-    color: white;
+    color: #fff;
     border: none;
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
@@ -1204,8 +1206,13 @@ footer {
     width: 100%;
 }
 
+.apply-button a {
+    color: #fff;
+    text-decoration: none;
+}
+
 .apply-button:hover {
-    background-color: var(--primary-color-light);
+    background-color: #135d96;
 }
 
 @media (max-width: 768px) {
@@ -1240,13 +1247,13 @@ footer {
 
     }
     nav.active {
-        height: 450px;
+        height: 300px;
     }
 
     nav ul {
         display: block;
         width: fit-content;
-        margin: 80px auto 0 auto;
+        margin: 30px auto 0 auto;
         text-align: center;
         transition: 0.5s    ;
         -webkit-transition: 0.5s    ;
@@ -1264,5 +1271,18 @@ footer {
 
     .phone {
         display: none;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .faq-container {
+        padding: 20px;
+    }
+
+    .about-content p, .about-content ul li {
+        font-size: 1rem;
+        padding: 8px;
     }
 }

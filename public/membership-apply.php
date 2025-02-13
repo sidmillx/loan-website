@@ -209,13 +209,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 50px;
+            /* padding: 50px; */
         }
 
         @media (min-width: 768px) {
             .application-form-container {
                 padding: 12px !important;
             }
+        }
+
+        .laws-container label{
+            /* display: flex;
+            align-items: center;
+            gap: 0; */
+            display: inline;
+           
+        }
+
+        .laws-container input {
+            width: 20px !important;
         }
   
     </style>
@@ -335,9 +347,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <!-- Entrance Fee and Shares Capital -->
                     <p>If application is accepted I agree to pay an Entrance fee of E <input type="number" name="entrance_fee" required> & Shares Capital of E <input type="number" name="shares_capital" required></p>
 
-                    <!-- Agreement to Abide by Society Laws -->
-                    <label for="laws">I agree to abide by all the laws of the society:</label>
-                    <input type="checkbox" id="laws" name="laws" required>
+                    
+                    
 
                     <!-- Nominee -->
                     <label for="nominee">Nominee</label>
@@ -361,6 +372,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="id_card">Recent Payslip</label>
                     Select an image to Upload
                     <input type="file" name="recent_payslip" id="recent_payslip"> 
+
+                    <!-- Agreement to Abide by Society Laws -->
+                    <div class="laws-container">
+                        <input type="checkbox" id="laws" name="laws" required>
+                        <label for="laws">I agree to abide by all the laws of the society:</label>
+                     </div>
 
                     <!-- Submit Button -->
                     <button type="submit" class="submit-btn">Apply for Membership</button>
