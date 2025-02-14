@@ -404,7 +404,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h4>Quick Links</h4>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="./membership-apply.html">Apply</a></li>
+                <li><a href="./membership-apply.php">Apply</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
             </ul>
@@ -471,6 +471,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 </html>
 
+
+<!-- HAVE TO ADD IMMEDIATE FEEDBACK, THAT THE FORM WAS SUCCESSFULLY RECIEVED WAITING FOR REVIEW. MAYBE GIVE LOGIN DETAILS IF SUCCESSFUL -->
+ <!-- THERE IS A BUG ON RESIDENTIAL ADDRESS, IT IS NOT SHOWING IN THE DATA BASE, FIX IT  -->
 
 <!-- HAVE TO ADD IMMEDIATE FEEDBACK, THAT THE FORM WAS SUCCESSFULLY RECIEVED WAITING FOR REVIEW. MAYBE GIVE LOGIN DETAILS IF SUCCESSFUL -->
  <!-- THERE IS A BUG ON RESIDENTIAL ADDRESS, IT IS NOT SHOWING IN THE DATA BASE, FIX IT  -->
