@@ -244,7 +244,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <nav>
             <ul>
                 <li><a href="./index.html">Home</a></li>
-                <li><a href="./membership-apply.php">Apply</a></li>
+                <li><a href="./membership-apply.php" class="active">Apply</a></li>
                 <li><a href="./faqs.html">FAQs</a></li>
                 <li><a href="./about.html">About</a></li>
             </ul>
@@ -253,6 +253,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="phone">
             <a href="tel:+1234567890"><i class="fa-solid fa-phone"></i> Call Us Now: +268 2404 0000</a>
         </div>
+        <button class="login-btn"><a href="./login.html">Login</a></button>
+
     </header>
 
     <!-- Membership Application Section -->
@@ -260,6 +262,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container">
 
             <section class="download-section">
+                 <img src="../assets/8542038_download_data_icon.png" alt="" style="width: 60px;">
+
                 <h2>Download Form</h2>
                 <p>Download the application form and submit it personally to our office.</p>
                 <a href="./download-forms.html" class="download-btn">Download Application Form</a>
@@ -400,7 +404,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h4>Quick Links</h4>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="apply.html">Apply</a></li>
+                <li><a href="./membership-apply.html">Apply</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
             </ul>

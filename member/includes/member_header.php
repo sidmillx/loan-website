@@ -184,6 +184,12 @@
                 </a>
             </li>
         </ul>
+        <li>
+                <a href="./logout.php">
+                  <i class="fa-solid fa-sign-out fa-lg" data-bs-toggle="tooltip" title="Profile"></i>
+                  <span>Logout</span>
+                </a>
+            </li>
         <!-- simple icons.io  -->
     </nav>
 

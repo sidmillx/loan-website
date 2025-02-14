@@ -27,10 +27,10 @@
     color: #fff;
 }
 
-h1 {
+/* h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
-}
+} */
 
 .fee, .shares, .payment-terms, .membership-status, .loan-info {
     font-size: 1.2em;
@@ -45,8 +45,8 @@ h1 {
     background-color: #FFC107;
     color: #333;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
+    padding: 12px 24px;
+    font-size: 1.1rem;
     cursor: pointer;
     border-radius: 5px;
     transition: background-color 0.3s;
@@ -59,6 +59,12 @@ h1 {
 
 .cta-button:hover {
     background-color: #FFCA2C;
+}
+
+.feature-item i {
+    margin-right: 15px;
+    margin-top: 5px;
+    color: #003366;
 }
 
 
@@ -74,7 +80,7 @@ h1 {
         <i class="fa-solid fa-bars fa-xl"></i>
         <nav>
             <ul>
-                <li><a href="./index.html">Home</a></li>
+                <li><a href="./index.html" class="active">Home</a></li>
                 <li><a href="./membership-apply.php">Apply</a></li>
                 <li><a href="./faqs.html">FAQs</a></li>
                 <li><a href="./about.html">About</a></li>
@@ -83,6 +89,8 @@ h1 {
         <div class="phone">
             <a href="tel:+1234567890"><i class="fa-solid fa-phone"></i> Call Us Now: +268 2404 2876</a>
         </div>
+
+        <button class="login-btn"><a href="../member/login.php">Login</a></button>
     </header>
 
     <section class="hero">
@@ -139,36 +147,35 @@ h1 {
             <p class="payment-terms">Payable within a period of <strong>6 months</strong>.</p>
             <p class="membership-status">You are a full member when you've paid your shares.</p>
             <p class="loan-info">You can only start making loans after <strong>6 months</strong>.</p>
+            <p style="margin-bottom: 20px;">*We offer our services to Government employees</p>
             <button class="cta-button"><a href="./membership-apply.php">Join Now</a></button>
         </div>
     </section>
  
     <div class="container-loan-container">
         <h1>Services Offered </h1>
+        <p id="payslip" style="font-style: italic;">*Payslip required when applying for loans</p>
         <div class="loan-grid">
             <div class="loan-card">
                 <div class="loan-card-header">
                     <h2 class="loan-card-title">Soft Loan</h2>
                 </div>
                 <div class="loan-card-content">
-                    <p class="loan-card-description">A low-interest loan for short-term needs with minimal paperwork and quick approval.</p>
+                    <p class="loan-card-description">Loan Terms:</p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Low-interest rates
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fa-solid fa-percent"></i>Interest Rate: 3% (on outstanding balance)
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Quick approval process
-                        </li>
-                        <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Flexible repayment terms
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-calendar-alt"></i>
+                            Maximum payable period of 12 months
                         </li>
                     </ul>
                 </div>
                 <div class="loan-card-footer">
-                    <button class="apply-button"><a href="./login.php">Apply for Loan</a></button>
+                    <button class="apply-button"><a href="../member/login.php">Apply for Loan</a></button>
                 </div>
             </div>
 
@@ -177,20 +184,22 @@ h1 {
                     <h2 class="loan-card-title">Emergency Loan</h2>
                 </div>
                 <div class="loan-card-content">
-                    <p class="loan-card-description">Fast and easy access to funds for urgent expenses with instant processing.</p>
+                    <p class="loan-card-description">Loan Terms:</p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Interest Rate 2%
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fa-solid fa-percent" style="margin-right: 25px;"></i>
+                            Interest Rate: 2%
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-user-check"></i>
                             Must be outstanding to a member within 12 months
                         </li>
                     </ul>
                 </div>
                 <div class="loan-card-footer">
-                    <button class="apply-button"><a href="./login.php">Apply for Loan</a></button>
+                    <button class="apply-button"><a href="../member/login.php">Apply for Loan</a></button>
                 </div>
             </div>
 
@@ -199,24 +208,27 @@ h1 {
                     <h2 class="loan-card-title">Long-Term Loan</h2>
                 </div>
                 <div class="loan-card-content">
-                    <p class="loan-card-description">Flexible repayment for large expenses like business, home, or education.</p>
+                    <p class="loan-card-description">Loan Terms:</p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Interest Rate 2%
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fa-solid fa-percent" style="margin-right: 25px;"></i>
+                            Interest Rate: 2%
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-balance-scale"></i>
                             Lending Ratio 1.2
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-user-check"></i>
                             Must be outstanding to a member within 80 months depending on loan amount
                         </li>
                     </ul>
                 </div>
                 <div class="loan-card-footer">
-                    <button class="apply-button"><a href="./login.php">Apply for Loan</a></button>
+                    <button class="apply-button"><a href="../member/login.php">Apply for Loan</a></button>
                 </div>
             </div>
 
@@ -225,24 +237,27 @@ h1 {
                     <h2 class="loan-card-title">Short Loan</h2>
                 </div>
                 <div class="loan-card-content">
-                    <p class="loan-card-description">Flexible repayment for large expenses like business, home, or education.</p>
+                    <p class="loan-card-description">Loan Terms:</p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Maximum E2000.00
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fa-solid fa-percent"></i>
+                            Interest Rate: 10%
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-calendar-alt"></i>
                             Payable within 3 months
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            10% interest rate
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-money-bill-wave"></i>
+                            Maximum E2000.00
                         </li>
                     </ul>
                 </div>
                 <div class="loan-card-footer">
-                    <button class="apply-button"><a href="./login.php">Apply for Loan</a></button>
+                    <button class="apply-button"><a href="../member/login.php">Apply for Loan</a></button>
                 </div>
             </div>
 
@@ -251,28 +266,32 @@ h1 {
                     <h2 class="loan-card-title">Quick Loan</h2>
                 </div>
                 <div class="loan-card-content">
-                    <p class="loan-card-description">Flexible repayment for large expenses like business, home, or education.</p>
+                    <p class="loan-card-description">Loan Terms:</p>
                     <ul class="feature-list">
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            Maximum E1000.00
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fa-solid fa-percent"></i>
+                            Interest Rate: 15% (on balance)
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-calendar-alt"></i>
                             Payable within 30 days, interest added after
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
-                            15% interest rate on balance
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-money-bill-wave"></i>
+                            Maximum E1000.00
                         </li>
                         <li class="feature-item">
-                            <span class="feature-icon">✓</span>
+                            <!-- <span class="feature-icon">✓</span> -->
+                            <i class="fas fa-user-check"></i>
                             Granted to all members of Vulindlela regardless of other loan balances
                         </li>
                     </ul>
                 </div>
                 <div class="loan-card-footer">
-                    <button class="apply-button"><a href="./login.php">Apply for Loan</a></button>
+                    <button class="apply-button"><a href="../member/login.php">Apply for Loan</a></button>
                 </div>
             </div>
         </div>
@@ -325,25 +344,7 @@ h1 {
         </div>
     </footer>
 
-    <script>
-        // Select all navigation links
-        const navLinks = document.querySelectorAll('nav ul li a');
 
-        // Get the current page URL
-        const currentUrl = window.location.pathname;
-
-        // Loop through each link to check if it matches the current URL
-        navLinks.forEach(link => {
-            // Remove 'active' class from all links
-            link.classList.remove('active');
-
-            // If the link's href matches the current URL, add 'active' class
-            if (link.getAttribute('href').includes(currentUrl.split('/').pop())) {
-                link.classList.add('active');
-            }
-        });
-
-    </script>
 
     <script>
         // Select the menu icon
