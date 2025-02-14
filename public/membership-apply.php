@@ -404,7 +404,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h4>Quick Links</h4>
             <ul>
                 <li><a href="index.html">Home</a></li>
-                <li><a href="./membership-apply.html">Apply</a></li>
+                <li><a href="./membership-apply.php">Apply</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="faqs.html">FAQs</a></li>
             </ul>
