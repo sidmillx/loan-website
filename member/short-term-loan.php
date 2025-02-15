@@ -20,6 +20,10 @@ function sanitize_input($data) {
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if(isset($_GET['loan_id'])){
+        $loan_id = $_GET['loan_id'];
+    }
     // Sanitize and validate form inputs
     $pb_number = isset($_POST['pb_number']) ? htmlspecialchars(trim($_POST['pb_number'])) : '';
     $savings_balance = isset($_POST['savings_balance']) ? htmlspecialchars(trim($_POST['savings_balance'])) : '';
@@ -92,6 +96,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Successfully inserted data, now send email or notification
             $success_message = "Your short-term-loan application has been submitted successfully!";
             echo "<p>Thank you for applying! Your application has been submitted and is under review.</p>";
+
+            $applicant_id = $conn->insert_id;
+
         // mail($email, "Membership Application", "Your application has been received.");
         } else {
         // Handle database error
@@ -102,6 +109,69 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         mysqli_stmt_close($stmt);
 
     }
+
+    // PHP FILE UPLOADS
+    $target_dir = "../uploads/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+    
+    // Check if image file is a actual image or fake image
+    if(isset($_POST["submit"])) {
+        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+        if($check !== false) {
+            echo "File is an image - " . $check["mime"] . "."; //comment this
+            $uploadOk = 1;
+        } else {
+            echo "File is not an image."; // see what to do with this
+            $uploadOk = 0;
+        }
+    }
+    
+    // Check if file already exists
+    // if (file_exists($target_file)) {
+    //     echo "Sorry, file already exists.";
+    //     $uploadOk = 0;
+    // }
+    
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > 2000000) {
+        echo "Sorry, your file is too large.";
+        $uploadOk = 0;
+    }
+    
+    // Allow certain file formats
+    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+    && $imageFileType != "gif" ) {
+        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        $uploadOk = 0;
+    }
+
+    
+    // Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        echo "Sorry, your file was not uploaded.";
+    // if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+
+            // Save the file path to the database
+            // $applicant_id = $POST['applicant_id'];
+            $sql = "INSERT INTO uploaded_files_loans (loan_id, file_path) VALUES ('$loan_id', '$target_file')";
+            echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+
+            if($conn->query($sql) === TRUE) {
+                echo "File uploaded successfully";
+            } else {
+                echo "Error saving file to database: " . $conn->error;
+            }
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
+
+
+
 }
 ?>
 
@@ -116,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2>Short Term Loan Application Form</h2>
                 <p class="sub-text">Please fill out all the required information below.</p>
             </div>
-            <form id="soft-loan" class="loan-form" method="POST">
+            <form id="soft-loan" class="loan-form" method="POST" enctype="multipart/form-data">
                 <h3>Personal Information</h3>
 
                 <div class="form-group-two">
@@ -227,16 +297,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <label for="loan-agreemen-check">I hereby certify that all the information given above is true and complete. I promise to abide by the terms of this agreement.</label>
                 </div>
                     <div class="form-group-two">
-                    <div class="form-group-two-item">
-                        <label>Signature of Borrower:</label>
-                        <input type="text" name="borrower_signature" placeholder="Enter Signature">
-                    </div>
-                    
-                    <div class="form-group-two-item">
-                        <label>Date:</label>
-                        <input type="date" name="date">
-                    </div>
+                        <div class="form-group-two-item">
+                            <label>Signature of Borrower:</label>
+                            <input type="text" name="borrower_signature" placeholder="Enter Signature">
+                        </div>
+                        
+                        <div class="form-group-two-item">
+                            <label>Date:</label>
+                            <input type="date" name="date">
+                        </div>
                 </div>
+                
+                
                 
                 <!-- CREDIT COMMITEE INFORMATIONS -->
                 <!-- <p class="section-title">For Credit Committee Use</p>
@@ -297,6 +369,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label>Account Number:</label>
                         <input type="account_number" name="account_number">
                     </div>
+                </div>
+                <div>
+                    <label for="id_card">Most Recent Payslip</label>
+                    Select an image to upload:
+                    <input type="file" name="fileToUpload" id="fileToUpload"> 
                 </div>
 
 

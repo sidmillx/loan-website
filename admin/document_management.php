@@ -28,5 +28,8 @@
         $conn->close();
         ?>
     </div>
+    <div>
+    <img src="uploads/Trumpwallpapers - 4K Corvette Wallpapers.jpeg" alt="Uploaded File" style="width:200px;height:auto; margin: 10px;">
+    </div>
 </div>
 <?php include './includes/admin_footer.php'; ?>

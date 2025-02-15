@@ -45,6 +45,7 @@ $result = $conn->query("SELECT * FROM loans ORDER BY loan_id DESC");
                 <th>Application Date</th>
                 <th>Status</th>
                 <th>Actions</th>
+                <th>View Details</th>
             </tr>
         </thead>
         <tbody>
@@ -64,6 +65,7 @@ $result = $conn->query("SELECT * FROM loans ORDER BY loan_id DESC");
                             <?php echo htmlspecialchars($loan['status']); ?>
                         <?php endif; ?>
                     </td>
+                    <td><a href="loan_details.php?id=<?php echo $loan['loan_id']; ?>" class="btn btn-info btn-sm">View Details</a></td>
                 </tr>
             <?php endwhile; ?>
         </tbody>

@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login</title>
 
     <style>
-        :root {
+      :root {
   --primary-color: #003366;
   --primary-color-light: #004488;
   --text-color: #333;
@@ -152,11 +152,6 @@ button:hover {
   }
 }
 
-@media (max-width: 768px){
-    .col-2 {
-        display: none;
-    }
-}
 
 .forgot-password {
   display: block;
@@ -197,6 +192,20 @@ button:hover {
 }
 
 
+@media (max-width: 768px){
+    .col-2 {
+        display: none;
+    }
+    .main-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      width: 85%;
+      margin: 0 auto;
+    }
+
+}
+
+
     </style>
 </head>
 <body>
@@ -222,5 +231,6 @@ button:hover {
         </div>
     </div>
     <div class="dont-have-account">Don't have an account? <a href="#">Apply</a> to be a member!</div>
+</body>
 </body>
 </html>

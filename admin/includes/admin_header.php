@@ -227,12 +227,12 @@ $is_admin = $_SESSION['role'] === 'admin';
           </li>
 
 
-          <li class="sidebar-item">
+          <!-- <li class="sidebar-item">
             <a href="./loan_products.php" class="sidebar-link">
               <i class="fa-solid fa-book"></i>
               <span>Loan Products</span>
             </a>
-          </li>
+          </li> -->
 
           <!-- <//?php if($is_admin): ?> -->
           <li class="sidebar-item">

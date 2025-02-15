@@ -146,20 +146,20 @@
                 
               </ul>
             </li>
-
+<!-- 
             <li>
                 <a href="./myloans.php">
                     <i class="fa-solid fa-money-bill fa-lg" data-bs-toggle="tooltip" title="My Loans"></i>
                     <span>My Loans</span>
                 </a>
-            </li>
+            </li> -->
 
-            <li>
+            <!-- <li>
                 <a href="./loan-products.php">
                     <i class="fa-solid fa-clipboard-list fa-xl" data-bs-toggle="tooltip" title="Loan Products"></i>
                     <span>Loan Products</span>
                 </a>
-            </li>
+            </li> -->
 
             <li>
                 <a href="./notifications.php">
@@ -169,6 +169,12 @@
             </li>
 
 
+            <li>
+                <a href="./profile.php">
+                  <i class="fa-solid fa-user fa-lg" data-bs-toggle="tooltip" title="Profile"></i>
+                  <span>Profile</span>
+                </a>
+            </li>
 
             <li>
                 <a href="./settings.php">
@@ -177,12 +183,6 @@
                 </a>
             </li>
 
-            <li>
-                <a href="./profile.php">
-                  <i class="fa-solid fa-user fa-lg" data-bs-toggle="tooltip" title="Profile"></i>
-                  <span>Profile</span>
-                </a>
-            </li>
         </ul>
         <li>
                 <a href="./logout.php">
