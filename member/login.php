@@ -1,4 +1,5 @@
 <?php
+// start the session
 session_start();
 
 require '../config/db.php'; // Database connection file

@@ -1,12 +1,10 @@
 <?php 
   session_start();
 
-  // Check if session is not set (meaning the user is not logged in)
   if (!isset($_SESSION['username'])) {
-    // Redirect to login page if no session
-    header('Location: login.php');
-    exit(); // Make sure no further code is executed after the redirect
-}
+    header('Location: ./login.php');
+    exit(); 
+    }
 $member_id = isset($_SESSION['username']) ? $_SESSION['username'] : '';
 
 

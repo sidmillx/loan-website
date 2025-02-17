@@ -16,7 +16,20 @@
 
 
 <?php
-include '../config/db.php';
+    session_start();
+
+    // Check if user is logged in
+    if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
+        header("Location: login.php"); // Redirect to login if session is not set
+        exit();
+    }
+
+    // Check if the user has admin privileges
+    if ($_SESSION['role'] !== 'admin') {
+        echo "Access Denied: You do not have permission to view this page.";
+        exit();
+    }
+    require_once '../config/db.php';
 
 // Fetch all users from the database
 $sql = "SELECT * FROM users";

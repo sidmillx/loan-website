@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../config/db.php'; // Database connection file
+require_once '../config/db.php';// Database connection file
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
@@ -13,10 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    if ($user && hash('sha256', $password) === $user['password']) {
-        $_SESSION['user_id'] = $user['id'];
+    if ($user && $password === $user['password']) { 
+        $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
-        $_SESSION['membership_status'] = $user['status']; // Adjusted to match your DB field
 
         session_regenerate_id(true); // Prevent session fixation
 
@@ -28,24 +27,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Admin Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        .form-control:focus {
+            border-color: #1e3c72;
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body>
-    <h2>Login</h2>
-    <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
-    <form action="#" method="post">
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" required><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
-
-        <button type="submit">Login</button>
-    </form>
+    <div class="login-container text-center">
+        <h3 class="mb-3">Admin Login</h3>
+        <!-- <//?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?> -->
+        <?php if (isset($error)): ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $error; ?>
+        </div>
+    <?php endif; ?>
+        <form action="#" method="POST">
+            <div class="mb-3">
+                <input type="text" name="username" class="form-control" placeholder="Username" required>
+            </div>
+            <div class="mb-3">
+                <input type="password" name="password" class="form-control" placeholder="Password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
 </body>
 </html>
+

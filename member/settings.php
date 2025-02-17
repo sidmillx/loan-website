@@ -1,13 +1,10 @@
 <?php 
- session_start(); // Ensure session is started
-    
- // Check if session is not set (meaning the user is not logged in)
+ session_start(); 
  if (!isset($_SESSION['username'])) {
-     // Redirect to login page if no session
      header('Location: login.php');
-     exit(); // Make sure no further code is executed after the redirect
+     exit(); 
  }
-  $pageTitle = 'Profile';
+  $pageTitle = 'Settings';
   include './includes/member_header.php'; 
 ?>
 <?php

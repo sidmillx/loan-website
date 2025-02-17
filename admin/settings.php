@@ -1,4 +1,17 @@
 <?php 
+    session_start();
+
+    // Check if user is logged in
+    if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
+        header("Location: login.php"); // Redirect to login if session is not set
+        exit();
+    }
+
+    // Check if the user has admin privileges
+    if ($_SESSION['role'] !== 'admin') {
+        echo "Access Denied: You do not have permission to view this page.";
+        exit();
+    }
     $pageTitle = "Settings";
     include './includes/admin_header.php';
 ?>
@@ -11,7 +24,7 @@
         <div class="settings-title">Admin Settings</div>
 
         <?php
-            include('../config/db.php'); // Include your database connection file
+            require_once '../config/db.php'; // Include your database connection file
 
             // Assuming the logged-in admin's username is stored in session
             if (isset($_SESSION['username'])) {

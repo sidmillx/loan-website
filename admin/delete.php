@@ -1,10 +1,23 @@
 <?php
+    session_start();
+
+    // Ensure user is logged in
+    if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
+        echo "Unauthorized access!";
+        exit();
+    }
+
+    // Ensure only admins can access it (if needed)
+    if ($_SESSION['role'] !== 'admin') {
+        echo "Access denied!";
+        exit();
+    }
 // Check if 'id' is set in the URL
 if (isset($_GET['id'])) {
     $id = $_GET['id']; // Retrieve the id from the URL
 
     // Database Connection
-    include('../config/db.php');
+    require_once '../config/db.php';
 
     // SQL query to delete the member
     $sql = "DELETE FROM members WHERE id = '$id'";

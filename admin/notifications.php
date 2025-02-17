@@ -1,8 +1,20 @@
 <?php 
     session_start();
+
+    // Check if user is logged in
+    if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
+        header("Location: login.php"); // Redirect to login if session is not set
+        exit();
+    }
+
+    // Check if the user has admin privileges
+    if ($_SESSION['role'] !== 'admin') {
+        echo "Access Denied: You do not have permission to view this page.";
+        exit();
+    }
     $pageTitle = "Notifications";
     include './includes/admin_header.php';
-    include('../config/db.php'); // Database connection
+    require_once '../config/db.php'; // Database connection
 
     // Ensure the user is logged in
     // if (!isset($_SESSION['member_id'])) {

@@ -5,12 +5,13 @@ include('../admin/includes/notification_helper.php');
 
 
 // Declare variables to store form data
-$full_name = $id_number = $postal_address = $gender = $email = $chief = $contact_details_work = $contact_details = "";
+$full_name = $id_number = $postal_address = $gender = $chief = $contact_details_work = $contact_details = "";
 $marital_status = $dob = $occupation = $employment_number = $name_of_employer = $address_of_employer = $residential_address = "";
 $savings = $entrance_fee = $shares_capital = $laws = $nominee = $date = $signature = $contact = "";
 
 // Define error array for form validation
-$errors = [];
+$error_message = " ";
+$success_message = " ";
 
 // Function to sanitize form input and avoid XSS (Cross-Site Scripting) attacks
 function sanitize_input($data) {
@@ -25,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postal_address = isset($_POST['postal_address']) ? htmlspecialchars(trim($_POST['postal_address'])) : ''; 
     $residential_address = isset($_POST['residential_address']) ? htmlspecialchars(trim($_POST['residential_address'])) : ''; 
     $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
-    $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
+    // $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
     $chief = isset($_POST['chief']) ? htmlspecialchars(trim($_POST['chief'])) : '';
     $contact_details_work = isset($_POST['contact_details_work']) ? htmlspecialchars(trim($_POST['contact_details_work'])) : '';
     $contact_details = isset($_POST['contact_details']) ? htmlspecialchars(trim($_POST['contact_details'])) : '';
@@ -50,13 +51,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     // Further validation, e.g., checking if fields are not empty or email format
-    if (empty($full_name) || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (empty($full_name)) {
         // Handle validation errors
         $error_message = "Please fill in all required fields correctly.";
     } else {
         // Prepare the SQL statement with placeholders
-        $sql = "INSERT INTO membership_applications (full_name, id_number, postal_address, gender, email, chief, contact_details_work, contact_details, marital_status, dob, occupation, employment_number, name_of_employer, address_of_employer, savings, residential_address, entrance_fee, shares_capital, laws, nominee, date, signature, contact)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO membership_applications (full_name, id_number, postal_address, gender, chief, contact_details_work, contact_details, marital_status, dob, occupation, employment_number, name_of_employer, address_of_employer, savings, residential_address, entrance_fee, shares_capital, laws, nominee, date, signature, contact)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
         // Prepare the statement
@@ -68,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Bind the parameters to the prepared statement
-        mysqli_stmt_bind_param($stmt, "sssssssssssssssssssssss", $full_name, $id_number, $postal_address, $gender, $email, $chief, $contact_details_work, $contact_details, $marital_status, $dob, $occupation, $employment_number, $name_of_employer, $address_of_employer, $savings, $residential_address, $entrance_fee, $shares_capital, $laws, $nominee, $date, $signature, $contact);
+        mysqli_stmt_bind_param($stmt, "ssssssssssssssssssssss", $full_name, $id_number, $postal_address, $gender, $chief, $contact_details_work, $contact_details, $marital_status, $dob, $occupation, $employment_number, $name_of_employer, $address_of_employer, $savings, $residential_address, $entrance_fee, $shares_capital, $laws, $nominee, $date, $signature, $contact);
 
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
@@ -108,68 +109,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    
-    // PHP FILE UPLOADS
     $target_dir = "../uploads/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
-    
-    // Check if image file is a actual image or fake image
-    if(isset($_POST["submit"])) {
-        $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-        if($check !== false) {
-            echo "File is an image - " . $check["mime"] . "."; //comment this
-            $uploadOk = 1;
-        } else {
-            echo "File is not an image."; // see what to do with this
-            $uploadOk = 0;
-        }
-    }
-    
-    // Check if file already exists
-    // if (file_exists($target_file)) {
-    //     echo "Sorry, file already exists.";
-    //     $uploadOk = 0;
-    // }
-    
-    // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 2000000) {
-        echo "Sorry, your file is too large.";
-        $uploadOk = 0;
-    }
-    
-    // Allow certain file formats
-    if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "pdf" ) {
-        echo "Sorry, only JPG, JPEG, PNG & PDF files are allowed.";
-        $uploadOk = 0;
-    }
+    $allowedFileTypes = ["jpg", "jpeg", "png", "pdf"];
 
-    
-    // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
-    // if everything is ok, try to upload file
-    } else {
-        if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            $loan_id = NULL;
+    $successFileMessage = "";
+    $errorFileMessage = "";
 
 
-            // Save the file path to the database
-            // $applicant_id = $POST['applicant_id'];
-            $sql = "INSERT INTO uploads (applicant_id, file_path) VALUES ('$applicant_id', '$target_file')";
-            echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+    // Array to hold file upload data
+    $files = [
+        "fileToUpload" => "id_card",
+        "recent_payslip" => "recent_payslip"
+    ];
 
-            if($conn->query($sql) === TRUE) {
-                echo "File uploaded successfully";
-            } else {
-                echo "Error saving file to database: " . $conn->error;
+    // Database connection (Ensure $conn is properly initialized)
+
+
+    foreach ($files as $inputName => $fileType) {
+        if (isset($_FILES[$inputName]) && $_FILES[$inputName]["error"] == 0) {
+            $target_file = $target_dir . basename($_FILES[$inputName]["name"]);
+            $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+            
+            // Validate file type
+            if (!in_array($fileType, $allowedFileTypes)) {
+                $errorFileMessage .= "Sorry, only JPG, JPEG, PNG & PDF files are allowed.<br>";
+                $uploadOk = 0;
             }
-        } else {
-            echo "Sorry, there was an error uploading your file.";
+            
+            // Validate file size (max 2MB)
+            if ($_FILES[$inputName]["size"] > 2000000) {
+                $errorFileMessage .= "Sorry, your file is too large.<br>";
+                $uploadOk = 0;
+            }
+            
+            // Upload file if no errors
+            if ($uploadOk) {
+                if (move_uploaded_file($_FILES[$inputName]["tmp_name"], $target_file)) {
+                   
+                    // Insert file details into database
+                    $sql = "INSERT INTO uploads (applicant_id, file_path) VALUES ('$applicant_id', '$target_file')";
+                    if ($conn->query($sql) === TRUE) {
+                        $successFileMessage .= "File " . basename($_FILES[$inputName]["name"]) . " uploaded successfully.<br>";
+                    } else {
+                        $errorFileMessage .= "Error saving file to database: " . $conn->error . "<br>";
+                    }
+                } else {
+                    $errorFileMessage .= "Sorry, there was an error uploading your file.<br>";
+                }
+            }
         }
-    }
+}
 }
 ?>
 
@@ -249,11 +239,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .laws-container input {
             width: 20px !important;
         }
+
+        .alert {
+            margin-bottom: 0;
+        }
   
     </style>
 </head>
 
 <body>
+    <!-- ALERT MESSAGES -->
 
     <!-- Header Section -->
     <header>
@@ -279,6 +274,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <!-- Membership Application Section -->
     <section class="membership-application">
+        
         <div class="container">
 
             <section class="download-section">
@@ -360,8 +356,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
                     <!-- Email -->
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    <!-- <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required> -->
 
                 
                     <!-- Minimum Savings Agreement -->

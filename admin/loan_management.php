@@ -1,4 +1,17 @@
 <?php 
+    session_start();
+
+    // Check if user is logged in
+    if (!isset($_SESSION['username']) || !isset($_SESSION['role'])) {
+        header("Location: login.php"); // Redirect to login if session is not set
+        exit();
+    }
+
+    // Check if the user has admin privileges
+    if ($_SESSION['role'] !== 'admin') {
+        echo "Access Denied: You do not have permission to view this page.";
+        exit();
+    }
     $pageTitle = "Loan Management";
     include './includes/admin_header.php';
 ?>
@@ -6,24 +19,24 @@
 
 <?php
 // Database Connection
-include('../config/db.php');
+require_once '../config/db.php';
 
 // Approve or Reject Loan
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    $action = $_GET['action'];
-    $id = $_GET['id'];
+// if (isset($_GET['action']) && isset($_GET['id'])) {
+//     $action = $_GET['action'];
+//     $id = $_GET['id'];
     
-    if ($action == 'approve' || $action == 'reject') {
-        $status = ($action == 'approve') ? 'Approved' : 'Rejected';
+//     if ($action == 'approve' || $action == 'reject') {
+//         $status = ($action == 'approve') ? 'Approved' : 'Rejected';
         
-        $stmt = $conn->prepare("UPDATE loans SET status = ? WHERE loan_id = ?");
-        $stmt->bind_param("si", $status, $id);
-        $stmt->execute();
+//         $stmt = $conn->prepare("UPDATE loans SET status = ? WHERE loan_id = ?");
+//         $stmt->bind_param("si", $status, $id);
+//         $stmt->execute();
         
-        header('Location: loan_management.php');
-        exit;
-    }
-}
+//         header('Location: loan_management.php');
+//         exit;
+//     }
+// }
 
 // Fetch Loan Applications
 $result = $conn->query("SELECT * FROM loans ORDER BY loan_id DESC");
@@ -38,7 +51,7 @@ $result = $conn->query("SELECT * FROM loans ORDER BY loan_id DESC");
     <table class="display">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Loan ID</th>
                 <th>Applicant Name</th>
                 <th>Loan Type</th>
                 <th>Amount (E)</th>
