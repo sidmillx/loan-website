@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require '../config/db.php'; // Database connection file
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,15 +14,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    if ($user && hash('sha256', $password) === $user['password']) {
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['membership_status'] = $user['status']; // Adjusted to match your DB field
-
-    
-
+    // Verify the password (unencrypted)
+    if ($user && $password === $user['password']) { 
+        // Store user session
+        $_SESSION['username'] = $user['username']; // Set the session variable with the username
+        
         session_regenerate_id(true); // Prevent session fixation
-
 
         header('Location: dashboard.php');
         exit();
@@ -30,6 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">

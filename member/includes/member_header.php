@@ -123,12 +123,12 @@
                   <i class="fa-solid fa-bars fa-lg"></i>
                 </button>
             </li>
-            <li class="active">
+            <!-- <li class="active">
                 <a href="./dashboard.php">
                     <i class="fa-solid fa-home fa-lg" data-bs-toggle="tooltip" title="Dashboard"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>
+            </li> -->
 
             
             <li>
@@ -160,21 +160,21 @@
                     <span>Loan Products</span>
                 </a>
             </li> -->
-
+<!-- 
             <li>
                 <a href="./notifications.php">
                   <i class="fa-solid fa-bell fa-lg" data-bs-toggle="tooltip" title="Notifications"></i>
                   <span>Notifications</span>
                 </a>
-            </li>
+            </li> -->
 
 
-            <li>
+            <!-- <li>
                 <a href="./profile.php">
                   <i class="fa-solid fa-user fa-lg" data-bs-toggle="tooltip" title="Profile"></i>
                   <span>Profile</span>
                 </a>
-            </li>
+            </li> -->
 
             <li>
                 <a href="./settings.php">

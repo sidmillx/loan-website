@@ -1,56 +1,129 @@
-
-<!-- We need to read the submitted data -->
- <?php 
-
-    $name = " ";
-    $email = " ";
+<?php
     // Database Connection
     include ('../config/db.php');
 
     // Check if data has been transmitted
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
 
-        //check if no empty data
+        // Assign submitted values to variables with validation and sanitization
+        $full_name = isset($_POST['full_name']) ? htmlspecialchars(trim($_POST['full_name'])) : '';
+        $id_number = isset($_POST['id_number']) ? htmlspecialchars(trim($_POST['id_number'])) : '';
+        $postal_address = isset($_POST['postal_address']) ? htmlspecialchars(trim($_POST['postal_address'])) : ''; 
+        $residential_address = isset($_POST['residential_address']) ? htmlspecialchars(trim($_POST['residential_address'])) : ''; 
+        $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
+        $chief = isset($_POST['chief']) ? htmlspecialchars(trim($_POST['chief'])) : '';
+        $contact_details_work = isset($_POST['contact_details_work']) ? htmlspecialchars(trim($_POST['contact_details_work'])) : '';
+        $contact_details_cell = isset($_POST['contact_details_cell']) ? htmlspecialchars(trim($_POST['contact_details_cell'])) : '';
+        $marital_status = isset($_POST['marital_status']) ? htmlspecialchars(trim($_POST['marital_status'])) : ''; 
+        $dob = isset($_POST['dob']) ? htmlspecialchars(trim($_POST['dob'])) : '';
+        $occupation = isset($_POST['occupation']) ? htmlspecialchars(trim($_POST['occupation'])) : '';
+        $employment_number = isset($_POST['employment_number']) ? htmlspecialchars(trim($_POST['employment_number'])) : '';
+        $name_of_employer = isset($_POST['name_of_employer']) ? htmlspecialchars(trim($_POST['name_of_employer'])) : '';
+        $address_of_employer = isset($_POST['address_of_employer']) ? htmlspecialchars(trim($_POST['address_of_employer'])) : '';
+        $savings = isset($_POST['savings']) ? htmlspecialchars(trim($_POST['savings'])) : '';
+        $entrance_fee = isset($_POST['entrance_fee']) ? htmlspecialchars(trim($_POST['entrance_fee'])) : '';
+        $shares_capital = isset($_POST['shares_capital']) ? htmlspecialchars(trim($_POST['shares_capital'])) : '';
+        $laws = isset($_POST['laws']) ? 1 : 0; // If checkbox is checked, set to 1, else 0
+        $nominee = isset($_POST['nominee']) ? htmlspecialchars(trim($_POST['nominee'])) : '';
+        $date = isset($_POST['date']) ? htmlspecialchars(trim($_POST['date'])) : '';
+        $signature = isset($_POST['signature']) ? htmlspecialchars(trim($_POST['signature'])) : '';
+        $contact = isset($_POST['contact']) ? htmlspecialchars(trim($_POST['contact'])) : '';
+
+        // Check if all required fields are filled
         do {
-            if (empty($name) || empty($email)) {
-            $errorMessage =  "All fields are required.";
-            break;
-            }
-
-            // add new client to database
-            $sql = "INSERT INTO members (full_name, email)" . "VALUES ('$name', '$email')";
-            $result= $conn->query($sql);
-
-            if(!$result) {
-                $errorMessage = "Failed to add client" . $conn->error;
+            if (empty($full_name) || empty($id_number) || empty($postal_address) || empty($residential_address) || 
+                empty($gender) || empty($dob) || empty($occupation) || empty($employment_number) ||
+                empty($savings) || empty($entrance_fee) || empty($shares_capital) || empty($nominee) || empty($contact)) {
+                $errorMessage =  "All fields are required.";
                 break;
             }
 
-            // Process the data (e.g., save to database)
-
-            // add new client to database
-            $name = "";
-            $email = "";
-          
-
-            $successMessage = "Client added successfully";
+            // Add new client to the members table
+            $sql = "INSERT INTO members (
+                full_name, 
+                id_number, 
+                postal_address, 
+                residential_address, 
+                gender, 
+                chief, 
+                contact_details_work, 
+                contact_details_cell, 
+                marital_status, 
+                dob, 
+                occupation, 
+                employment_number, 
+                name_of_employer, 
+                address_of_employer, 
+                savings, 
+                entrance_fee, 
+                shares_capital, 
+                laws, 
+                nominee, 
+                signature, 
+                contact
+            ) VALUES (
+                '$full_name', 
+                '$id_number', 
+                '$postal_address', 
+                '$residential_address', 
+                '$gender', 
+                '$chief', 
+                '$contact_details_work', 
+                '$contact_details_cell', 
+                '$marital_status', 
+                '$dob', 
+                '$occupation', 
+                '$employment_number', 
+                '$name_of_employer', 
+                '$address_of_employer', 
+                '$savings', 
+                '$entrance_fee', 
+                '$shares_capital', 
+                '$laws', 
+                '$nominee', 
+                '$signature', 
+                '$contact'
+            )";
             
+            // Execute query
+            $result = $conn->query($sql);
+
+            if(!$result) {
+                $errorMessage = "Failed to add client: " . $conn->error;
+                break;
+            }
+
+            // Get the last inserted member_id to use as the username
+            $member_id = $conn->insert_id;
+
+            // Generate username and default password
+            $username = $member_id; // Use member_id as username
+            $password = 'default123'; // Default password
+
+            // Insert into users table
+            $sql_user = "INSERT INTO users (username, password) VALUES ('$username', '$password')";
+
+            $user_result = $conn->query($sql_user);
+
+            if (!$user_result) {
+                $errorMessage = "Failed to create user: " . $conn->error;
+                break;
+            }
+
+            // Success message
+            $successMessage = "Client and user account created successfully.";
+
+            // Redirect to member management page
             header('location: ./member_management.php');
             exit;
+
         } while (false);
     }
 
-   
-    
-    
-
     $errorMessage = "";
     $successMessage = "";
+?>
 
-    
- ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,20 +149,151 @@
             </div>";
         }
         ?>
-        <form method="post">
+        <form method="POST">
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Name</label>
+                <label class="col-sm-3 col-form-label">Full Name</label>
                 <div class="col-sm-6">
-                    <input type="text" name="name" class="form-control" value="<?php echo $name; ?>"/>
+                    <input type="text" name="full_name" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">ID Number</label>
+                <div class="col-sm-6">
+                    <input type="text" name="id_number" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Postal Address</label>
+                <div class="col-sm-6">
+                    <input type="text" name="postal_address" class="form-control"/>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-3 col-form-label">Email</label>
+                <label class="col-sm-3 col-form-label">Chief</label>
                 <div class="col-sm-6">
-                    <input type="text" name="email" class="form-control" value="<?php echo $email; ?>"/>
+                    <input type="text" name="chief" class="form-control"/>
                 </div>
             </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Contact Details</label>
+                <div class="col-sm-6">
+                    <input type="text" name="contact_details_work" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Marital Status</label>
+                <div class="col-sm-6">
+                    <input type="text" name="marital_status" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Residential Address</label>
+                <div class="col-sm-6">
+                    <input type="text" name="residential_address" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Gender</label>
+                <div class="col-sm-6">
+                    <select name="gender" class="form-control">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+            </div>
+            
+     
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Date of Birth</label>
+                <div class="col-sm-6">
+                    <input type="date" name="dob" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Occupation</label>
+                <div class="col-sm-6">
+                    <input type="text" name="occupation" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Employment Number</label>
+                <div class="col-sm-6">
+                    <input type="text" name="employment_number" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Name of Employer</label>
+                <div class="col-sm-6">
+                    <input type="text" name="name_of_employer" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Address of Employer</label>
+                <div class="col-sm-6">
+                    <input type="text" name="address_of_employer" class="form-control"/>
+                </div>
+            </div>
+            <div class="laws-container">
+                        <input type="checkbox" id="laws" name="laws" required>
+                        <label for="laws">I agree to abide by all the laws of the society:</label>
+                     </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Savings</label>
+                <div class="col-sm-6">
+                    <input type="number" step="0.01" name="savings" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Entrance Fee</label>
+                <div class="col-sm-6">
+                    <input type="number" step="0.01" name="entrance_fee" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Shares Capital</label>
+                <div class="col-sm-6">
+                    <input type="number" step="0.01" name="shares_capital" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Nominee</label>
+                <div class="col-sm-6">
+                    <input type="text" name="nominee" class="form-control"/>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Signature</label>
+                <div class="col-sm-6">
+                    <input type="text" name="signature" class="form-control"/>
+                </div>
+            </div>
+            
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">Contact</label>
+                <div class="col-sm-6">
+                    <input type="text" name="contact" class="form-control"/>
+                </div>
+            </div>
+            
+          
+    
 
             <!-- DISPLAY SUCCESS MESSAGE -->
             <?php

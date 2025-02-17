@@ -1,12 +1,12 @@
 <?php
 // Start session and check if admin is logged in.
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+// session_start();
+// if (!isset($_SESSION['user_id'])) {
+//     header("Location: login.php");
+//     exit();
+// }
 
-$is_admin = $_SESSION['role'] === 'admin';
+// $is_admin = $_SESSION['role'] === 'admin';
 
 ?>
 <!DOCTYPE html>
@@ -173,6 +173,25 @@ $is_admin = $_SESSION['role'] === 'admin';
         .btn:hover {
             background-color: #45a049;
         }
+
+        .notification-count {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        width: 18px;
+        height: 18px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        font-size: 12px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .sidebar-link {
+        position: relative;
+  }
     </style>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -213,7 +232,7 @@ $is_admin = $_SESSION['role'] === 'admin';
 
           <li class="sidebar-item">
             <a href="./member_applications.php" class="sidebar-link" onclick="showContent('members')">
-              <i class="fa-solid fa-user-group"></i>
+              <i class="fas fa-file-alt"></i>
               <span>Member Applications</span>
             </a>
           </li>
@@ -245,28 +264,64 @@ $is_admin = $_SESSION['role'] === 'admin';
 
 
             <!-- <//?php if($is_admin): ?> -->
-          <li class="sidebar-item">
+          <!-- <li class="sidebar-item">
             <a href="./reports.php" class="sidebar-link">
               <i class="fas fa-chart-line"></i>
               <span>Reports</span>
             </a>
-          </li>
+          </li> -->
 
           <!-- <//?php endif; ?> -->
+
+
+
+          <!-- <li class="sidebar-item">
+            <a href="./notifications.php" class="sidebar-link">
+              <i class="fa-solid fa-bell"></i>
+              <span>Notifications</span>
+            </a>
+          </li> -->
+
+          <?php
+            // Assuming you're already connected to the database
+            include('../config/db.php');
+            function getUnreadNotificationsCount($conn) {
+              // Query to get the count of unread notifications for the admin (or specific user)
+              $query = "SELECT COUNT(*) AS unread_count FROM notifications WHERE is_read = '0'";
+              
+              // Prepare the statement
+              $stmt = $conn->prepare($query);
+              $stmt->execute();
+              
+              // Get the result
+              $result = $stmt->get_result();
+              $row = $result->fetch_assoc();
+              
+              // Return the unread notification count
+              return $row['unread_count'];
+          }
+
+            // Get the unread notification count
+            $unread_notifications = getUnreadNotificationsCount($conn);
+            ?>
 
           <li class="sidebar-item">
             <a href="./notifications.php" class="sidebar-link">
               <i class="fa-solid fa-bell"></i>
               <span>Notifications</span>
+              <?php if ($unread_notifications > 0): ?>
+                <span class="notification-count"><?= $unread_notifications ?></span>
+              <?php endif; ?>
             </a>
           </li>
 
 
 
+
           <li class="sidebar-item">
-            <a href="./admin_profile.php" class="sidebar-link">
-              <i class="fa-solid fa-user"></i>
-              <span>Profile</span>
+            <a href="./manage_users.php" class="sidebar-link">
+              <i class="fa-solid fa-users-line"></i>
+              <span>Manage Users</span>
             </a>
           </li>
 

@@ -1,14 +1,23 @@
 <?php 
 
-  session_start();
+//   session_start();
   
-  if(!isset($_SESSION['user_id'])){
-      header("Location: login.php");
-      exit();
-    }
+//   if(!isset($_SESSION['user_id'])){
+//       header("Location: login.php");
+//       exit();
+//     }
+
+session_start(); // Ensure session is started
+    
+// Check if session is not set (meaning the user is not logged in)
+if (!isset($_SESSION['username'])) {
+    // Redirect to login page if no session
+    header('Location: login.php');
+    exit(); // Make sure no further code is executed after the redirect
+}
     include('../config/db.php');
 
-  $user_id = $_SESSION['user_id'];
+  $user_id = $_SESSION['username'];
    // Make sure user_id is available before executing the SQL query
    if (isset($user_id)) {
     // Read the user data from the database where id is user_id

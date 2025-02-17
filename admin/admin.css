@@ -233,28 +233,142 @@ th, td {
 .reject {
     background-color: red;
 }
+.membership-application-container {
+    padding: 30px;
 
+}
 
 /* NOTIFICATIONS */
-#notificationIcon {
+.notification-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    max-height: 800px;
+    overflow-y: scroll;
+}
+.notification {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s;
+}
+.notification.unread {
+    background: #dff0d8;
+    font-weight: bold;
+}
+.notification.read {
+    background: #f0f0f0;
+    color: #555;
+}
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: red;
+    font-size: 1.2rem;
     cursor: pointer;
-    position: relative;
+}
+.mark-read-btn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+}
+.mark-read-btn:hover {
+    text-decoration: underline;
 }
 
-#notificationCount {
-    background: red;
+/* 
+#docs-management {
+    display: flex;
+    max-width: 1200px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+} */
+
+/* .docs-management-content {
+    display: flex;
+
+} */
+
+/* Grid container to display columns */
+#docs-management {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between items */
+}
+
+/* Each item (flex column for image + text) */
+.doc-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 180px; /* Adjust width to fit */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    height: 250px; /* Fixed height */
+    justify-content: space-between; /* Push p tag to the bottom */
+    overflow: hidden; /* Prevent overflow */
+}
+
+/* Image styling */
+.doc-item img {
+    width: 150px;
+    height: auto;
+    max-height: 150px; /* Limit the height to fit container */
+    object-fit: contain; /* Ensures the image maintains aspect ratio */
+    margin-top: 10px; /* Adjust spacing */
+}
+
+/* ID text styling (always at the bottom, centered) */
+.doc-item p {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    width: 100%; /* Ensure it spans the full width */
+    text-align: center; /* Center the text */
+    align-self: flex-end; /* Position at the bottom */
+}
+
+
+.kpi-card {
+    background: linear-gradient(135deg, #4e73df, #224abe);
     color: white;
-    border-radius: 50%;
-    padding: 2px 6px;
-    position: absolute;
-    top: -5px;
-    right: -5px;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 }
 
-#notificationPanel {
-    border: 1px solid #ccc;
-    background: #fff;
-    max-width: 300px;
-    position: absolute;
-    z-index: 1000;
+.kpi-card:hover {
+    transform: scale(1.05);
+}
+
+.kpi-card i {
+    font-size: 2rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.kpi-label {
+    font-size: 1rem;
+    font-weight: 500;
+    /* opacity: 0.9; */
+    color: white;
+}
+
+.kpi-value {
+    font-size: 1.5rem;
+    font-weight: bold;
 }

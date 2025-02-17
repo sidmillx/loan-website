@@ -6,7 +6,7 @@
 <div class="main p-3">
     <h2>Member Management</h2>
     <p>Review and manage member sign-up applications. Approve or reject applications, view member details, and update member records.</p>
-    <a class="btn btn-primary" href="./create.php" role="button">New Client</a>
+    <a class="btn btn-primary" href="./create.php" role="button" style="margin-bottom: 20px;">New Member</a>
     <br>
 
     <table class="display" id="">
@@ -14,10 +14,10 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
-                <th>Email</th>
+                <!-- <th>Email</th> -->
                 <th>Phone</th>
                 <th>Address</th>
-                <th>Created At</th>
+                <th>Gender</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -31,6 +31,8 @@
                     $sql = "SELECT * FROM members";
                     $result = $conn->query($sql);
 
+                    // <a href='./edit.php?id=$row[id]' class='btn btn-primary btn-sm'>Edit</a>
+
                     // check if query executed
                     if (!$result){
                         die("Invalid query: " . $connection->error);
@@ -42,12 +44,12 @@
                             <tr>
                                 <td>$row[id]</td>
                                 <td>$row[full_name]</td>
-                                <td>$row[email]</td>
-                                <td>$row[email]</td>
-                                <td>$row[email]</td>
-                                <td>$row[submitted_at]</td>
+                                <td>$row[contact_details]</td>
+                                <td>$row[residential_address]</td>
+                                <td>$row[gender]</td>
+            
                                 <td>
-                                    <a href='./edit.php?id=$row[id]' class='btn btn-primary btn-sm'>Edit</a>
+                                   
                                     <a href='./delete.php?id=$row[id]' class='btn btn-danger btn-sm'>Delete</a>
                                 </td>
                             </tr>

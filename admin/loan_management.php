@@ -35,17 +35,17 @@ $result = $conn->query("SELECT * FROM loans ORDER BY loan_id DESC");
     <!-- Insert table or list for loan applications with options to filter by type and status -->
     <h1>Loan Applications</h1>
 
-    <table id="" class="display">
+    <table class="display">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Applicant Name</th>
                 <th>Loan Type</th>
-                <th>Amount</th>
+                <th>Amount (E)</th>
                 <th>Application Date</th>
-                <th>Status</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
                 <th>View Details</th>
+                <th>View Documents</th>
             </tr>
         </thead>
         <tbody>
@@ -55,17 +55,19 @@ $result = $conn->query("SELECT * FROM loans ORDER BY loan_id DESC");
                     <td><?php echo htmlspecialchars($loan['full_name']); ?></td>
                     <td><?php echo htmlspecialchars($loan['loan_type']); ?></td>
                     <td><?php echo htmlspecialchars($loan['loan_balance']); ?></td>
-                    <td><?php echo htmlspecialchars($loan['date']); ?></td>
-                    <td><?php echo htmlspecialchars($loan['status']); ?></td>
-                    <td>
-                        <?php if ($loan['status'] == 'Pending'): ?>
-                            <a href="?action=approve&id=<?php echo $loan['loan_id']; ?>" class="btn approve" onclick="return confirm('Are you sure you want to approve this loan?');">Approve</a>
-                            <a href="?action=reject&id=<?php echo $loan['loan_id']; ?>" class="btn reject" onclick="return confirm('Are you sure you want to reject this loan?');">Reject</a>
-                        <?php else: ?>
-                            <?php echo htmlspecialchars($loan['status']); ?>
-                        <?php endif; ?>
-                    </td>
+                    <td><?php echo htmlspecialchars($loan['created_at']); ?></td>
                     <td><a href="loan_details.php?id=<?php echo $loan['loan_id']; ?>" class="btn btn-info btn-sm">View Details</a></td>
+                    <td>
+                        <a href="./document_management.php?search_id=<?php echo $loan['loan_id']; ?>" class="btn btn-secondary">View Documents</a>
+                    </td>
+                    <!-- <td>
+                        <//?php if ($loan['status'] == 'Pending'): ?>
+                            <a href="?action=approve&id=<//?php echo $loan['loan_id']; ?>" class="btn approve" onclick="return confirm('Are you sure you want to approve this loan?');">Approve</a>
+                            <a href="?action=reject&id=<//?php echo $loan['loan_id']; ?>" class="btn reject" onclick="return confirm('Are you sure you want to reject this loan?');">Reject</a>
+                        <//?php else: ?>
+                            <//?php echo htmlspecialchars($loan['status']); ?>
+                        <//?php endif; ?>
+                    </td> -->
                 </tr>
             <?php endwhile; ?>
         </tbody>

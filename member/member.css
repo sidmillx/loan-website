@@ -401,6 +401,65 @@ a.sidebar-link:hover {
 } */
 
 
+@media (max-width: 768px) {
+  #sidebar {
+      width: 100%;  /* Full width */
+      height: auto; /* Adjust height */
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      border-right: none; /* Remove right border */
+      border-bottom: 1px solid var(--line-clr); /* Add bottom border */
+      display: flex;
+      flex-direction: row; /* Align items in a row */
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 15px;
+      overflow-x: auto; /* Enable scrolling if needed */
+  }
+
+  #sidebar ul {
+      display: flex;
+      flex-direction: row;
+      gap: 15px;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  #sidebar ul li {
+      display: inline-block;
+  }
+
+  #sidebar ul li a,
+  #sidebar ul li button {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+      padding: 10px;
+  }
+
+  /* Hide sub-menu by default */
+  .sub-menu {
+      display: none;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      width: 100%;
+      background: var(--primary-dark);
+      padding: 10px;
+      z-index: 100;
+  }
+
+  /* Show submenu on click */
+  .sub-menu.active {
+      display: block;
+  }
+}
+
+
 
 /* MY LOANS */
 .myloanscontainer { max-width: 1200px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }

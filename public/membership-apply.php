@@ -1,6 +1,8 @@
 <?php
 // Include database connection (if needed)
 include('../config/db.php');
+include('../admin/includes/notification_helper.php');
+
 
 // Declare variables to store form data
 $full_name = $id_number = $postal_address = $gender = $email = $chief = $contact_details_work = $contact_details = "";
@@ -21,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $full_name = isset($_POST['full_name']) ? htmlspecialchars(trim($_POST['full_name'])) : '';
     $id_number = isset($_POST['id_number']) ? htmlspecialchars(trim($_POST['id_number'])) : '';
     $postal_address = isset($_POST['postal_address']) ? htmlspecialchars(trim($_POST['postal_address'])) : ''; 
-    $residential_address = isset($_POST['$residential_address']) ? htmlspecialchars(trim($_POST['residential_address'])) : ''; 
+    $residential_address = isset($_POST['residential_address']) ? htmlspecialchars(trim($_POST['residential_address'])) : ''; 
     $gender = isset($_POST['gender']) ? htmlspecialchars(trim($_POST['gender'])) : '';
     $email = isset($_POST['email']) ? htmlspecialchars(trim($_POST['email'])) : '';
     $chief = isset($_POST['chief']) ? htmlspecialchars(trim($_POST['chief'])) : '';
@@ -70,13 +72,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
-        // Successfully inserted data, now send email or notification
-        $success_message = "Your membership application has been submitted successfully!";
-        echo "<p>Thank you for applying! Your application has been submitted and is under review.</p>";
-
 
         // GET THE AUTO GENERATED APPLICANT ID
         $applicant_id = $conn->insert_id;
+        // Loan Id is 0 here
+
+
+        // Successfully inserted data, now send email or notification
+        $success_message = "Your membership application has been submitted successfully!";
+        // echo "<p>Thank you for applying! Your application has been submitted and is under review.</p>";
+        $title="New Loan Application";
+        $message="A new member " . $full_name . " has just applied!";
+        createNotification($conn, $title, $message, 'Membership Request', 'admin');
+        // echo "<script>
+        //     Swal.fire({
+        //     title: 'Good job!',
+        //     text: 'You clicked the button!',
+        //     icon: 'success'
+        //     });
+        // </script>";
+
+
+        
+
         // Optionally send an email to the user
         // mail($email, "Membership Application", "Your application has been received.");
         } else {
@@ -92,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     
     // PHP FILE UPLOADS
-    $target_dir = "../admin/uploads";
+    $target_dir = "../uploads/";
     $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
@@ -110,10 +128,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     
     // Check if file already exists
-    if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
-        $uploadOk = 0;
-    }
+    // if (file_exists($target_file)) {
+    //     echo "Sorry, file already exists.";
+    //     $uploadOk = 0;
+    // }
     
     // Check file size
     if ($_FILES["fileToUpload"]["size"] > 2000000) {
@@ -123,8 +141,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-    && $imageFileType != "gif" ) {
-        echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+    && $imageFileType != "pdf" ) {
+        echo "Sorry, only JPG, JPEG, PNG & PDF files are allowed.";
         $uploadOk = 0;
     }
 
@@ -135,10 +153,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+            $loan_id = NULL;
+
 
             // Save the file path to the database
             // $applicant_id = $POST['applicant_id'];
-            $sql = "INSERT INTO uploaded_files (applicant_id, file_path) VALUES ('$applicant_id', '$target_file')";
+            $sql = "INSERT INTO uploads (applicant_id, file_path) VALUES ('$applicant_id', '$target_file')";
             echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
 
             if($conn->query($sql) === TRUE) {
@@ -159,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQs - Vulindlela Savings & Credit Co-operative</title>
+    <title>Apply - Vulindlela Savings & Credit Co-operative</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Bootstrap CSS -->
@@ -466,6 +486,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             navMenu.classList.toggle('active');
         });
     </script>
+
     
 
 </body>

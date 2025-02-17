@@ -15,7 +15,7 @@ function generatePDF($data) {
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('Loan Website');
     $pdf->SetTitle('Loan Application Form');
-    $pdf->SetHeaderData('', 0, 'Loan Online Application Form', "Generated at: " . $currentDate);
+    $pdf->SetHeaderData('', 0, 'Online Loan Application Form', "Generated at: " . $currentDate);
     $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
     $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
@@ -86,10 +86,10 @@ $conn->close();
         <form method="post" action="details.php">
             <?php
             $fields = [
-                'loan_id', 'member_id', 'pb_number', 'savings_balance', 'loan_balance','postal_address', 'contact_details_work',
-                'contact_details', 'number_of_dependents', 'gross_salary', 'net_salary', 'loan_amount', 'loan_period',
+                'loan_id', 'member_id', 'loan_type', 'pb_number', 'savings_balance', 'loan_balance','postal_address', 'contact_details_work',
+                'contact_details_cell', 'contact_details_home', 'number_of_dependents', 'gross_salary', 'net_salary', 'loan_amount', 'loan_period',
                 'installment_date', 'installment', 'loan_purpose', 'signature', 'date', 'name_of_bank', 'account_number',
-                'branch', 'surety_offered', 'surety_value', 'existing_loan', 'existing_loan_details', 'loan_type', 'status',
+                'branch', 'surety_offered', 'surety_value', 'existing_loan', 'existing_loan_details', 'status',
                 'created_at', 'due_date'
             ];
             foreach ($fields as $field) {
