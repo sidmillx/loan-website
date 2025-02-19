@@ -10,7 +10,7 @@
     $pageTitle = 'Emergency Loan Application';
     include './includes/member_header.php'; 
     include('../config/db.php');
-    include('./includes/notification_helper.php');
+    include('../config/notification_helper.php');
 
     // Declare variables to store form data
     $pb_number = $savings_balance = $loan_balance = $full_name = $id_number = $postal_address = $contact_details_work = $contact_details = $contact_details_home = "";
@@ -122,8 +122,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
              // PHP FILE UPLOADS
-            $target_dir = "../uploads/";
-            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+             $target_dir = "../uploads/";
+             $newFileName = uniqid() . "_" . basename($_FILES["fileToUpload"]["name"]); // ADDED NOW NOW
+             $target_file = $target_dir . $newFileName;
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             
@@ -146,7 +147,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // }
             
             // Check file size
-            if ($_FILES["fileToUpload"]["size"] > 5000000) {
+            $maxFileSize = 5 * 1024 * 1024; // 5MB
+            if ($_FILES["fileToUpload"]["size"] > $maxFileSize) {
                 echo "Sorry, your file is too large.";
                 $uploadOk = 0;
             }
@@ -192,6 +194,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <section class="loan-application main">
+<button class="open-btn" onclick="toggleSidebar()">&#9776;</button>
+
     <h2 class="main-header">Emergency Loan</h2>
     <h5>Quick access to funds for urgent and unexpected financial needs. Apply easily with minimal requirements for fast approval.</h5>
     <div class="container-loan">

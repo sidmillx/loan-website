@@ -60,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="login-container text-center">
         <h3 class="mb-3">Admin Login</h3>
+        <p>Please enter your credentials to access the admin panel.</p>
         <!-- <//?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?> -->
         <?php if (isset($error)): ?>
     <div class="alert alert-danger" role="alert">

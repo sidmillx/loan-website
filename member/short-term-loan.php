@@ -10,7 +10,7 @@
     $pageTitle = 'Short Term Loan Application';
     include './includes/member_header.php'; 
     include('../config/db.php');
-    include('./includes/notification_helper.php');
+    include('../config/notification_helper.php');
 
     // Declare variables to store form data
     $pb_number = $savings_balance = $loan_balance = $full_name = $id_number = $postal_address = $contact_details_work = $contact_details = $contact_details_home = "";
@@ -122,7 +122,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
              // PHP FILE UPLOADS
             $target_dir = "../uploads/";
-            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $newFileName = uniqid() . "_" . basename($_FILES["fileToUpload"]["name"]); // ADDED NOW NOW
+            $target_file = $target_dir . $newFileName;
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             
@@ -145,7 +146,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // }
             
             // Check file size
-            if ($_FILES["fileToUpload"]["size"] > 5000000) {
+            $maxFileSize = 5 * 1024 * 1024; // 5MB
+            if ($_FILES["fileToUpload"]["size"] > $maxFileSize) {
                 echo "Sorry, your file is too large.";
                 $uploadOk = 0;
             }
@@ -169,18 +171,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         
                     // Save the file path to the database
-                    // $applicant_id = $POST['applicant_id'];
-                    $sql = "INSERT INTO uploads (loan_id, file_path) VALUES ('$loan_id', '$target_file')";
-                    echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-        
-                    if($conn->query($sql) === TRUE) {
-                        // echo "File uploaded successfully";ADD THE ERROR MESSAGES
-                    } else {
-                        echo "Error saving file to database: " . $conn->error;
+
+                    // $sql = "INSERT INTO uploads (loan_id, file_path) VALUES ('$loan_id', '$target_file')";
+
+                    // Prepare an SQL statement to prevent SQL injection
+                    $stmt = $conn->prepare("INSERT INTO uploads (loan_id, file_path) VALUES (?, ?)");
+                    if (!$stmt) {
+                        die("Error preparing statement: " . $conn->error);
                     }
+
+                    // Bind parameters (i = integer, s = string)
+                    $stmt->bind_param("is", $loan_id, $target_file);
+
+                   if ($stmt->execute()) {
+                        echo "The file " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " has been uploaded and saved.";
+                    } else {
+                        echo "Error saving file to database: " . $stmt->error;
+                    }
+
+                    // Close statement
+                    $stmt->close();
                 } else {
                     echo "Sorry, there was an error uploading your file.";
-                } 
+                }
             }
             
             // mail($email, "Membership Application", "Your application has been received.");
@@ -191,6 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <section class="loan-application main">
+<button class="open-btn" onclick="toggleSidebar()">&#9776;</button>
     <div class="page-header">
         <h2 class="main-header">Short Term Loan</h2>
         <h5>Apply for quick, short-duration loans to cover immediate financial needs.</h5>

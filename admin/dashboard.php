@@ -9,7 +9,7 @@
 
     // Check if the user has admin privileges
     if ($_SESSION['role'] !== 'admin') {
-        echo "Access Denied: You do not have permission to view this page.";
+        header("Location: access_denied.php");
         exit();
     }
 

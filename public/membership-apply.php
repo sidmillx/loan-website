@@ -128,7 +128,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     foreach ($files as $inputName => $fileType) {
         if (isset($_FILES[$inputName]) && $_FILES[$inputName]["error"] == 0) {
-            $target_file = $target_dir . basename($_FILES[$inputName]["name"]);
+            $newFileName = uniqid() . "_" . basename($_FILES["fileToUpload"]["name"]); // ADDED NOW NOW
+            $target_file = $target_dir . $newFileName;
             $fileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
             
             // Validate file type
@@ -137,8 +138,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $uploadOk = 0;
             }
             
-            // Validate file size (max 2MB)
-            if ($_FILES[$inputName]["size"] > 2000000) {
+            // Validate file size
+            $maxFileSize = 5 * 1024 * 1024; // 5MB
+            if ($_FILES[$inputName]["size"] > $maxFileSize) {
                 $errorFileMessage .= "Sorry, your file is too large.<br>";
                 $uploadOk = 0;
             }

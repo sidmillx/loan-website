@@ -24,112 +24,222 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <script type="text/javascript" src="./app.js" defer></script>
+<!-- 
+<style>
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        background: #111;
+        color: white;
+        position: fixed;
+        left: -250px;
+        top: 0;
+        transition: left 0.3s ease-in-out;
+        padding-top: 20px;
+        z-index: 1000;
+    }
 
+    .sidebar .logo {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .logo h2 {
+        color: white;
+    }
+
+    .close-btn {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .menu {
+        list-style: none;
+        padding: 20px;
+    }
+
+    .menu li {
+        margin: 15px 0;
+    }
+
+    .menu li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+    }
+
+    .menu li a i {
+        margin-right: 10px;
+    }
+
+    .sidebar.active {
+        left: 0;
+    }
+
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 999;
+    }
+
+    .sidebar.active ~ .overlay {
+        display: block;
+    }
+
+    .main {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .open-btn {
+        font-size: 24px;
+        cursor: pointer;
+        background: none;
+        border: none;
+    }
+
+@media (min-width: 768px) {
+    .sidebar {
+        left: 0;
+    }
+
+    .open-btn, .close-btn {
+        display: none;
+    }
+
+    .overlay {
+        display: none;
+    }
+}
+</style> -->
+
+
+<style>
+    .sidebar {
+      width: 250px;
+      height: 100vh;
+      background: #3b82f6;
+      color: white;
+      position: fixed;
+      left: -250px;
+      top: 0;
+      transition: left 0.3s ease-in-out;
+      padding-top: 20px;
+      z-index: 1000;
+  }
+  .main {
+  flex: 1;
+  padding: 20px;
+  }
+
+  .sidebar .logo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+
+.logo h2 {
+    color: white;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.menu {
+    list-style: none;
+    padding: 20px;
+}
+
+
+.menu li {
+    margin: 15px 0;
+}
+.menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+.menu li a i {
+    margin-right: 10px;
+}
+.sidebar.active {
+    left: 0;
+}
+.sidebar.active ~ .overlay {
+    display: block;
+}
+.open-btn {
+    font-size: 24px;
+    cursor: pointer;
+    background: none;
+    border: none;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+}
+
+/* Desktop View */
+
+
+
+  @media (min-width: 768px) {
+    .sidebar {
+        left: 0;
+    }
+    .open-btn, .close-btn {
+        display: none;
+    }
+
+    .overlay {
+        display: none;
+    }
+    .main {
+        margin-left: 250px;
+    }
+  }
+</style>
 </head>
 <body>
-    <!-- <div class="wrapper"> -->
-      <!-- <aside id="sidebar">
-        <div class="d-flex">
-          <button id="toggle-btn" type="button">
-            <img src="../assets/grid-icon.png" alt="grid-icon">
-          </button>
 
-          <div class="sidebar-logo">
-            <a href="#">Vulindlela</a>
-          </div>
-        </div>
-
-        <ul class="sidebar-nav">
-
-            <li class="sidebar-item">
-                <a href="./dashboard.php" class="sidebar-link">
-                <i class="fa-solid fa-home"></i>
-                <span>Dashboard</span>
-            </a>
-          </li>
-
-          <//?php if ($is_verified): ?>
-          <li class="sidebar-item">
-            <a href="./loan-application.php" class="sidebar-link" onclick="showContent('members')">
-              <i class="fa-solid fa-file-pen"></i>
-              <span>Loan Application</span>
-            </a>
-          </li>
-          <//?php endif; ?>
-
-          <//?php if ($is_verified): ?>
-          <li class="sidebar-item">
-            <a href="./myloans.php" class="sidebar-link">
-              <i class="fa-solid fa-money-bill"></i>
-              <span>My loans</span>
-            </a>
-          </li>
-          <//?php endif; ?>
-
-
-          <li class="sidebar-item">
-            <a href="./loan-products.php" class="sidebar-link">
-              <i class="fa-solid fa-money-bill"></i>
-              <span>Loan Products</span>
-            </a>
-          </li>
-
-
-
-          <li class="sidebar-item">
-            <a href="./notifications.php" class="sidebar-link">
-              <i class="fa-solid fa-bell"></i>
-              <span>Notifications</span>
-            </a>
-          </li>
-
-
-
-          <li class="sidebar-item">
-            <a href="./profile.php" class="sidebar-link">
-              <i class="fa-solid fa-user"></i>
-              <span>Profile</span>
-            </a>
-          </li>
-
-  
-          <li class="sidebar-item">
-            <a class="sidebar-link" href="./settings.php">
-              <i class="fa-solid fa-cog"></i>
-              <span>Settings</span>
-            </a>
-          </li>
-        </ul>
-        
-        <div class="sidebar-footer">
-          <div class="sidebar-link">
-            <a href="./logout.php">
-                <i class="fa-solid fa-sign-out-alt"></i>
-            </a>
-            <span>Logout</span>
-          </div>
-        </div>
-      
-      </aside> -->
 
       
-    <nav id="sidebar">
+    <!-- <nav id="sidebar">
         <ul>
             <li>
                 <span class="logo">Vulindlela</span>
                 <button onclick="toggleSidebar()" id="toggle-btn">
-                    <!-- Add icon -->
-                  <!-- <img src="../assets/grid-icon.png" alt="grid-icon" style="width: 35px; height: auto;"> -->
                   <i class="fa-solid fa-bars fa-lg"></i>
                 </button>
             </li>
-            <!-- <li class="active">
-                <a href="./dashboard.php">
-                    <i class="fa-solid fa-home fa-lg" data-bs-toggle="tooltip" title="Dashboard"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li> -->
-
             
             <li>
               <button onclick="toggleSubMenu(this)" class="dropdown-btn" >
@@ -146,35 +256,6 @@
                 
               </ul>
             </li>
-<!-- 
-            <li>
-                <a href="./myloans.php">
-                    <i class="fa-solid fa-money-bill fa-lg" data-bs-toggle="tooltip" title="My Loans"></i>
-                    <span>My Loans</span>
-                </a>
-            </li> -->
-
-            <!-- <li>
-                <a href="./loan-products.php">
-                    <i class="fa-solid fa-clipboard-list fa-xl" data-bs-toggle="tooltip" title="Loan Products"></i>
-                    <span>Loan Products</span>
-                </a>
-            </li> -->
-<!-- 
-            <li>
-                <a href="./notifications.php">
-                  <i class="fa-solid fa-bell fa-lg" data-bs-toggle="tooltip" title="Notifications"></i>
-                  <span>Notifications</span>
-                </a>
-            </li> -->
-
-
-            <!-- <li>
-                <a href="./profile.php">
-                  <i class="fa-solid fa-user fa-lg" data-bs-toggle="tooltip" title="Profile"></i>
-                  <span>Profile</span>
-                </a>
-            </li> -->
 
             <li>
                 <a href="./settings.php">
@@ -190,14 +271,26 @@
                   <span>Logout</span>
                 </a>
             </li>
-        <!-- simple icons.io  -->
-    </nav>
+    </nav> -->
 
-      <!-- <div class="main p-3">
-        <div>
-          <h1>Sidebar Bootstrap</h1>
-        </div>
-      </div>
-    </div> -->
 
   
+    <div class="sidebar" id="sidebar">
+        <div class="logo">
+            <h2>Vulindlela</h2>
+            <button class="close-btn" onclick="toggleSidebar()">&#10005;</button>
+        </div>
+        <ul class="menu">
+            <p style="font-size: 0.9rem; border-top: 1px solid white; padding-top: 10px; margin-bottom: 40px;">Apply for loans:</p>
+        <li><a href="./short-term-loan.php"><i class="fas fa-hand-holding-usd"></i> Short Term Loan</a></li>
+        <li><a href="./emergency-loan.php"><i class="fas fa-exclamation-triangle"></i> Emergency Loan</a></li>
+        <li><a href="./long-term-loan.php"><i class="fas fa-piggy-bank"></i> Long Term Loan</a></li>
+        <li><a href="./settings.php"><i class="fas fa-cog"></i> Settings</a></li>
+        <li><a href="./logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+
+        </ul>
+    </div>
+
+    <!-- Background Overlay (Only for mobile) -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+

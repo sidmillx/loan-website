@@ -18,7 +18,7 @@
   $member_id = $_SESSION['username'];
 
   // Fetch member details from the database
-  $sql = "SELECT full_name, dob, gender, email, contact_details, residential_address, status FROM members WHERE id = ?";
+  $sql = "SELECT full_name, dob, gender, contact_details, residential_address, status FROM members WHERE id = ?";
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("i", $member_id);
   $stmt->execute();
@@ -35,6 +35,10 @@
 
 <body>
   <div class="container-settings main">
+<button class="open-btn" onclick="toggleSidebar()">&#9776;</button>
+
+
+    
     <div class="page-header">
       <h2 class="main-header">Account Settings</h2>
       <h5>Manage your account preferences, security settings, and notification options.</h5>
@@ -71,10 +75,6 @@
     <div class="settings-section-member">
         <h3>Contact Information</h3>
         <div class="info-grid">
-            <div class="info-item">
-                <label>Email</label>
-                <input type="email" name="email" value="<?php echo htmlspecialchars($member['email']); ?>" readonly>
-            </div>
             <div class="info-item">
                 <label>Phone</label>
                 <input type="text" name="phone" value="<?php echo htmlspecialchars($member['contact_details']); ?>" readonly>

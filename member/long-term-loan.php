@@ -121,7 +121,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // PHP FILE UPLOADS
     $target_dir = "../uploads/";
-    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    $newFileName = uniqid() . "_" . basename($_FILES["fileToUpload"]["name"]); // ADDED NOW NOW
+    $target_file = $target_dir . $newFileName;
     $uploadOk = 1;
     $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
     
@@ -144,7 +145,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // }
     
     // Check file size
-    if ($_FILES["fileToUpload"]["size"] > 2000000) {
+    $maxFileSize = 5 * 1024 * 1024; // 5MB
+    if ($_FILES["fileToUpload"]["size"] > $maxFileSize) {
         echo "Sorry, your file is too large.";
         $uploadOk = 0;
     }
@@ -184,6 +186,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 
 <section class="loan-application main">
+<button class="open-btn" onclick="toggleSidebar()">&#9776;</button>
+
     <div class="page-header">
         <h2 class="main-header">Long Term Loan</h2>
     </div>

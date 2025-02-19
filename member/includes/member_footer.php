@@ -28,7 +28,7 @@
     </script>
 
 <!-- NOTIFICATIONS -->
-<script>
+<!-- <script>
     function fetchNotifications() {
     fetch('../admin/member/fetch_notifications.php')
         .then(response => response.json())  // Fix: Removed semicolon here
@@ -48,29 +48,45 @@
         })
         .catch(error => {
             console.error('Error fetching notifications:', error);  // Added error handling
-        });
+                });
+        }
+
+        function markAsRead(id) {
+            fetch('../member/notifications/update_notification.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `id=${id}`
+            }).then(() => fetchNotifications())
+            .catch(error => {
+                console.error('Error marking notification as read:', error);  // Added error handling
+            });
+        }
+
+
+        function toggleNotifications() {
+            const panel = document.getElementById('notificationPanel');
+            panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+        }
+
+        setInterval(fetchNotifications, 5000); // Refresh every 5 seconds
+        window.onload = fetchNotifications;
+
+ </script> -->
+
+
+<!-- SIDE NAVIGATION -->
+ <script>
+ function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+
+    sidebar.classList.toggle("active");
+
+    // Only show overlay if screen width is less than 768px
+    if (window.innerWidth < 768) {
+        overlay.classList.toggle("active");
+    }
 }
-
-function markAsRead(id) {
-    fetch('../member/notifications/update_notification.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${id}`
-    }).then(() => fetchNotifications())
-    .catch(error => {
-        console.error('Error marking notification as read:', error);  // Added error handling
-    });
-}
-
-
-function toggleNotifications() {
-    const panel = document.getElementById('notificationPanel');
-    panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
-}
-
-setInterval(fetchNotifications, 5000); // Refresh every 5 seconds
-window.onload = fetchNotifications;
-
  </script>
 </body>
 </html>
